@@ -5,71 +5,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {asset name="Head"}
   </head>
-  <body id="{$BodyID}" class="{$BodyClass} sticky-footer-body">
-    <nav class="navbar navbar-default navbar-static-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">{t c="Toggle navigation"}</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="{link path="home"}">{logo}</a>
-        </div>
+  <body id="{$BodyID}" class="{$BodyClass}">
+      <div class="headerbar">
+          <nav class="navbar navbar-default navbar-static-top" role="navigation">
+              <div class="container">
+                  <div class="navbar-header">
+                      <a class="navbar-brand" href="{link path="home"}">{logo}</a>
+                  </div>
 
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            {categories_link}
-            {discussions_link}
-            {activity_link}
-            {custom_menu}
-          </ul>
-          {if $User.SignedIn}
-            <ul class="nav navbar-nav navbar-right hidden-xs">
-              {module name="MeModule"}
-            </ul>
-            <ul class="nav navbar-nav navbar-right visible-xs">
-              {profile_link}
-              {inbox_link}
-              {bookmarks_link}
-              {dashboard_link}
-              {signinout_link}
-            </ul>
-          {else}
-            <ul class="nav navbar-nav navbar-right">
-              {signin_link}
-            </ul>
+                  <div class="navbar-collapse collapse">
+                      {if $User.SignedIn}
+                      <ul class="nav navbar-nav navbar-right hidden-xs">
+                          {module name="MeModule"}
+                      </ul>
+                      <ul class="nav navbar-nav navbar-right visible-xs">
+                          {profile_link}
+                          {inbox_link}
+                          {bookmarks_link}
+                          {dashboard_link}
+                          {signinout_link}
+                      </ul>
+                      {else}
+                      <ul class="nav navbar-nav navbar-right">
+                          {signin_link}
+                      </ul>
+                      {/if}
+                  </div>
+              </div>
+          </nav>
+      </div>
+
+      {if !$User.SignedIn}
+          {$Assets.Panel.GuestModule}
+      {else}
+          {if $smarty.server.REQUEST_URI == '/'}
+          <div class="greeting">
+              <section class="container">
+                      <div class="greeting--header">
+                          <h1 class="greeting--header-title">Hallo {$User.Name}!</h1>
+
+                          <p class="greeting--header-description">Schön, dass Du den Weg hierher gefunden hast. Ich merke gerade, dass wir da in jedem Fall noch einen Text brauchen. Hat jemand Ideen?</p>
+                      </div>
+              </section>
+          </div>
           {/if}
-        </div>
-      </div>
-    </nav>
+      {/if}
 
-    <section class="container">
-      <div class="row">
-        <main class="page-content" role="main">
-          {breadcrumbs}
-          {if InSection(array("CategoryList", "CategoryDiscussionList", "DiscussionList"))}
-            <div class="well search-form">{searchbox}</div>
-          {/if}
-          {asset name="Content"}
-        </main>
+      {$Assets.Content.Discussions}
 
-        <aside class="page-sidebar" role="complementary">
-          {asset name="Panel"}
-        </aside>
-      </div>
-    </section>
-
-    <footer class="page-footer sticky-footer">
-      <div class="container">
-        <div class="clearfix">
-          <p class="pull-left">{t c="Copyright"} &copy; {$smarty.now|date_format:"%Y"} <a href="{link path="home"}">{logo}</a></p>
-        </div>
-        {asset name="Foot"}
-      </div>
-    </footer>
-
-    {event name="AfterBody"}
+      <section class="container">
+          <div class="row">
+              <main class="page-content" role="main">
+                  {asset name="Content"}
+              </main>
+          </div>
+      </section>
   </body>
 </html>

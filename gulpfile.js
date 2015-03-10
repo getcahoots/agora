@@ -1,26 +1,32 @@
 /* laxcomma: true */
 'use strict';
 
+var path = require('path');
+
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')()
 
+var sequence = require('run-sequence');
+
+function trans (dir) {
+    return $.scp2({
+        host: process.env.SFTP_HOST,
+        port: process.env.SFTP_PORT,
+        username: process.env.SFTP_USER,
+        password: process.env.SFTP_PASSWORD,
+        dest: path.join(process.env.SFTP_PATH, dir)
+    });
+}
+
 gulp.task('styles', function () {
-   var themes = $.filter('themes/*.css');
 
   return gulp.src([
     'less/style.less'
-  , 'less/themes/*.less'
   ], {base: 'less'})
     .pipe($.plumber())
     .pipe($.less())
     .pipe($.autoprefixer())
     .pipe($.csso())
-    .pipe(themes)
-    .pipe($.rename({
-      dirname: '/'
-    , prefix: 'custom_'
-    }))
-    .pipe(themes.restore())
     .pipe(gulp.dest('design'))
     .pipe($.size({showFiles: true}));
 });
@@ -61,15 +67,21 @@ gulp.task('wire', function () {
     gulp.watch('bower.json', ['wiredep']);
 });
 
-gulp.task('transfer', function transfer () {
-    return gulp.src(['./design/*.css', './js/**/*.js', './about.php'])
-        .pipe($.sftp({
-            host: process.env.SFTP_HOST,
-            port: process.env.SFTP_PORT,
-            user: process.env.SFTP_USER,
-            pass: process.env.SFTP_PASSWORD,
-            remotePath: process.env.SFTP_PATH
-        }));
+gulp.task('transfer-views', function () {
+    return gulp.src(['./views/*.tpl']).pipe(trans('/views/'));
+});
+
+gulp.task('transfer-styles', function () {
+    return gulp.src(['./design/*.css']).pipe(trans('/design/'));
+});
+
+gulp.task('transfer-assets', function () {
+    return gulp.src(['./about.php']).pipe(trans('/'));
+});
+
+
+gulp.task('transfer', function transfer (callback) {
+    return sequence('transfer-styles', 'transfer-assets', 'transfer-views', callback);
 });
 
 gulp.task('deploy', function deploy (callback) {

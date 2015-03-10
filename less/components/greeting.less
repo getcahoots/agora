@@ -1,0 +1,38 @@
+.greeting {
+    background: #3E3E47;
+    color: #fff;
+    padding: 40px 0 45px;
+    text-align:center;
+
+    .greeting--header {
+
+        > .greeting--header-title {
+            color: #fff;
+            font-size: 380%;
+        }
+
+        > .greeting--header-description {
+            margin-bottom: 35px;
+        }
+    }
+
+    .greeting--buttons {
+        margin-top: 15px;
+
+        > .button {
+            background: rgba(255, 255, 255, .2);
+            border: 2px solid #fff;
+            color: #fff;
+            padding: 10px 40px;
+            margin: 0 20px;
+
+            &:hover {
+                text-decoration: none;
+            }
+
+            &.apply {
+                background: transparent;
+            }
+        }
+    }
+}
