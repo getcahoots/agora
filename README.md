@@ -11,16 +11,28 @@ You need Node.js / io.js in order to build the theme.
 Install all dependencies via npm:
 
 ```sh
-$ npm install
+$ npm install && npm run bower
 ```
+
+The last script call will install all bower dependencies.
 
 ### Tasks
 
-#### Build - `npm run build`
-Compiles all theme assets using Gulp. LESS stylesheets will be compiled to [`design/style.css`](design/style.css) and Javascripts will be concatenated and output to [`js/custom.js`](js/custom.js).
+#### Wire mode (a.k.a. development mode)
 
-#### Watch - `npm run watch`
-Watches the assets for changes and runs the appropriate Gulp tasks. Also starts a Livereload server that will push the changes to your Vanilla installation automatically.
+```sh
+$ SFTP_HOST=<sftp-host> SFTP_PORT=<sftp-port> SFTP_USER=<sftp-user> SFTP_PATH=<sftp-path> npm run wire
+```
+
+Will switch into development mode and listens for changes, compiles them and deploys this new version to the defined server.
+
+#### Build
+
+```sh
+$ npm run build
+```
+
+Will compile all sources (you have to deploy this build manually).
 
 ---
 

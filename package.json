@@ -4,9 +4,9 @@
   "description": "The UI theme of the cahoots forum.",
   "private": true,
   "scripts": {
-    "install": "bower install",
+    "bower": "bower install",
     "build": "gulp",
-    "watch": "gulp watch"
+    "wire": "gulp wire"
   },
   "author": "cahoots.pw",
   "repository": {
@@ -45,12 +45,12 @@
     "gulp-csso": "^1.0.0",
     "gulp-filter": "^2.0.2",
     "gulp-less": "^3.0.1",
-    "gulp-livereload": "^3.8.0",
     "gulp-load-plugins": "^0.8.1",
     "gulp-plumber": "^1.0.0",
     "gulp-rename": "^1.2.0",
     "gulp-size": "^1.2.1",
     "gulp-uglify": "^1.1.0",
+    "gulp-sftp": "^0.1.4",
     "wiredep": "^2.2.2"
   },
   "engines": {

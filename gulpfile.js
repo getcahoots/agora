@@ -1,11 +1,11 @@
 /* laxcomma: true */
 'use strict';
 
-var gulp = require('gulp')
-  , $ = require('gulp-load-plugins')()
+var gulp = require('gulp');
+var $ = require('gulp-load-plugins')()
 
 gulp.task('styles', function () {
-  var themes = $.filter('themes/*.css');
+   var themes = $.filter('themes/*.css');
 
   return gulp.src([
     'less/style.less'
@@ -49,20 +49,31 @@ gulp.task('wiredep', function () {
 
 gulp.task('default', ['styles', 'scripts']);
 
-gulp.task('watch',  function () {
-  var server = $.livereload();
+gulp.task('wire', function () {
+    gulp.watch([
+        'design/*.css',
+        'js/*.js',
+        'views/**/*.tpl'
+    ], ['transfer']);
 
-  gulp.watch([
-    'design/*.css'
-  , 'js/*.js'
-  , 'views/**/*.tpl'
-  ], function (file) {
-    return server.changed(file.path);
-  });
+    gulp.watch('less/**/*.less', ['styles']);
+    gulp.watch('js/src/**/*.js', ['scripts']);
+    gulp.watch('bower.json', ['wiredep']);
+});
 
-  gulp.watch('less/**/*.less', ['styles']);
-  gulp.watch('js/src/**/*.js', ['scripts']);
-  gulp.watch('bower.json', ['wiredep']);
+gulp.task('transfer', function transfer () {
+    return gulp.src(['./design/*.*', './js/**/*.js'])
+        .pipe($.sftp({
+            host: process.env.SFTP_HOST,
+            port: process.env.SFTP_PORT,
+            user: process.env.SFTP_USER,
+            pass: process.env.SFTP_PASSWORD,
+            remotePath: process.env.SFTP_PATH
+        }));
+});
+
+gulp.task('deploy', function deploy (callback) {
+    return sequence('styles', 'scripts', 'transfer', callback);
 });
 
 // Expose Gulp to external tools
