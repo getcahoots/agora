@@ -62,7 +62,7 @@ gulp.task('wire', function () {
 });
 
 gulp.task('transfer', function transfer () {
-    return gulp.src(['./design/*.*', './js/**/*.js'])
+    return gulp.src(['./design/*.css', './js/**/*.js', './about.php'])
         .pipe($.sftp({
             host: process.env.SFTP_HOST,
             port: process.env.SFTP_PORT,
