@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {asset name="Head"}
+
+    <link href='//fonts.googleapis.com/css?family=Ubuntu:300,400' rel='stylesheet' type='text/css'>
   </head>
   <body id="{$BodyID}" class="{$BodyClass}">
       <div class="headerbar">

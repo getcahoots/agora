@@ -155,6 +155,15 @@ function WriteDiscussion($Discussion, &$Sender, &$Session) {
             }
         ?>
     </td>
+    <td class="discussions-entry photo">
+        <?php
+            if ($Discussion->LastCommentID != '') {
+               echo UserPhoto($Last);
+            } else {
+               echo UserPhoto($First);
+            }
+        ?>
+    </td>
 </tr>
 
 <?php

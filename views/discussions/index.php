@@ -20,23 +20,25 @@ if ($this->DiscussionData->NumRows() > 0 || (isset($this->AnnounceData) && is_ob
 ?>
 
 <div class="container">
+    <div class="row">
+        <div class="discussions">
 
-    <div class="discussions">
-
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th class="discussions-header col-md-7">Vorschlag</th>
-                    <th class="discussions-header col-md-1">Stimmen</th>
-                    <th class="discussions-header col-md-1">Kommentare</th>
-                    <th class="discussions-header col-md-1">Besuche</th>
-                    <th class="discussions-header col-md-2">Letzte Aktivität</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php include($this->FetchViewLocation('discussions', 'Discussions', 'Vanilla')); ?>
-            </tbody>
-        </table>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="discussions-header col-md-6">Vorschlag</th>
+                        <th class="discussions-header col-md-1">Stimmen</th>
+                        <th class="discussions-header col-md-1">Kommentare</th>
+                        <th class="discussions-header col-md-1">Besuche</th>
+                        <th class="discussions-header col-md-2">Letzte Aktivität</th>
+                        <th class="discussions-header col-md-1"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php include($this->FetchViewLocation('discussions', 'Discussions', 'Vanilla')); ?>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 
