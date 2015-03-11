@@ -34,7 +34,10 @@ if (!function_exists('WriteComment'))
         </div>
 
         <div class="comments">
-            
+
         </div>
+
+        <?php echo WriteCommentForm(); ?>
+
     </div>
 </div>

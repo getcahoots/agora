@@ -45,8 +45,6 @@ $this->FireEvent('BeforeDiscussionDisplay');
 
     <?php $this->FireEvent('AuthorInfo'); ?>
 
-
-
     <?php $this->FireEvent('DiscussionInfo'); ?>
 
     <?php
