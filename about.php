@@ -9,5 +9,6 @@ $ThemeInfo['Bootstrap'] = array(
   'AuthorEmail' => 'info@cahoots.pw',
   'AuthorUrl'   => 'https://github.com/getcahoots',
   'License'     => 'MIT',
-  'RequiredApplications' => array('Vanilla' => '2.1.x')
+  'RequiredApplications' => array('Vanilla' => '2.1.x'),
+  'IsMobile'    => true
 );
