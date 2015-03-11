@@ -8,6 +8,10 @@ $Author = Gdn::UserModel()->GetID($Discussion->InsertUserID);
 $this->EventArguments['Discussion'] = &$Discussion;
 $this->EventArguments['Author'] = &$Author;
 
+// DEPRECATED ARGUMENTS (as of 2.1)
+$this->EventArguments['Object'] = &$Discussion;
+$this->EventArguments['Type'] = 'Discussion';
+
 $this->FireEvent('BeforeDiscussionDisplay');
 ?>
 
@@ -19,11 +23,10 @@ $this->FireEvent('BeforeDiscussionDisplay');
 </div>
 <?php $this->FireEvent('AfterDiscussionBody'); ?>
 
-<ul class="discussion-body--voting">
-    <li class="discussion-body--voting-up"></li>
-    <li class="discussion-body--voting-sum">20</li>
-    <li class="discussion-body--voting-down"></li>
-</ul>
+<div class="discussion-body--voting">
+    <?php $this->FireEvent('AfterDiscussionMeta'); ?>
+    <?php $this->FireEvent('DiscussionInfo'); ?>
+</div>
 
 <div class="discussion-body--appendix">
 
@@ -41,11 +44,9 @@ $this->FireEvent('BeforeDiscussionDisplay');
             ?>
 
         </div>
+
+        <?php $this->FireEvent('AuthorInfo'); ?>
     </div>
-
-    <?php $this->FireEvent('AuthorInfo'); ?>
-
-    <?php $this->FireEvent('DiscussionInfo'); ?>
 
     <?php
         WriteReactions($Discussion);

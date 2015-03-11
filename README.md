@@ -21,7 +21,7 @@ The last script call will install all bower dependencies.
 #### Wire mode (a.k.a. development mode)
 
 ```sh
-$ SFTP_HOST=<sftp-host> SFTP_PORT=<sftp-port> SFTP_USER=<sftp-user> SFTP_PATH=<sftp-path> npm run wire
+$ SFTP_HOST=<sftp-host> SFTP_PORT=<sftp-port> SFTP_USER=<sftp-user> SFTP_PASSWORD=<sftp-password> SFTP_PATH=<sftp-path> npm run wire
 ```
 
 Will switch into development mode and listens for changes, compiles them and deploys this new version to the defined server.

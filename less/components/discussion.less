@@ -46,13 +46,19 @@
             padding: 0;
             height: 100%;
 
-            > * {
-                height: 33%;
-            }
+            .Voter {
+                height: 60%;
+                display: block;
+                margin-top: 20%;
 
-            > .discussion-body--voting-sum {
-                color: @link-hover-color;
-                font-size:360%;
+                > *:nth-child(2) {
+                    color: @link-hover-color;
+                    font-size:310%;
+                }
+
+                > a {
+                    display: block;
+                }
             }
         }
 
