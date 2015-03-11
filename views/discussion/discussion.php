@@ -31,10 +31,9 @@ $this->FireEvent('BeforeDiscussionDisplay');
 <div class="discussion-body--appendix">
 
     <div class="discussion-body--appendix-author">
-        <?php echo UserPhoto($Author);?>
 
         <div class="discussion-body--appendix-author--details">
-            Eingetragen von <?php echo UserAnchor($Author, 'Username');?> • <?php echo Anchor(Gdn_Format::Date($Discussion->DateInserted, 'html'), $Discussion->Url, 'Permalink', array('rel' => 'nofollow'));?>
+            Eingetragen von <?php echo $Session->User->Name; ?> • <?php echo Anchor(Gdn_Format::Date($Discussion->DateInserted, 'html'), $Discussion->Url, 'Permalink', array('rel' => 'nofollow'));?>
             •
 
             <?php

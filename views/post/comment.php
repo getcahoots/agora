@@ -12,11 +12,11 @@
         <?php if (Gdn::Session()->IsValid()): ?>
             <div class="commenter">
                 <div class="commenter-body">
-                    <div class="commenter-body--meta">
+                    <!--div class="commenter-body--meta">
                         <?php
                             WriteCommentFormHeader();
                         ?>
-                    </div>
+                    </div-->
 
                     <div class="commenter-body--form">
 

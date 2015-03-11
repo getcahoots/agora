@@ -89,11 +89,12 @@ function WriteComment($Comment, $Sender, $Session, $CurrentOffset) {
     <div class="comment-body">
 
         <div class="comment-body--avatar">
-            <?php
-                echo UserPhoto($Author);
-            ?>
+                <?php if ($Author->Photo != "") { ?>
+                    <img class="ProfilePhoto ProfilePhotoMedium" src="<?php echo $Author->Photo; ?>" alt="Profile image <?php echo $Author->Name; ?>">
+                <?php } ?>
+
                 <span class="username">
-                    <?php echo UserAnchor($Author, 'Username'); ?>
+                    <?php echo $Author->Name; ?>
                 </span>
 
             <?php

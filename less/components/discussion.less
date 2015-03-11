@@ -9,12 +9,25 @@
 
     > .discussion-header {
 
+        position: relative;
+
         > .discussion-header--title {
             font-size: 240%;
             font-weight: 100;
             padding: 40px 40px 20px 40px
         }
 
+        > .discussion-header--star {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+
+            .Bookmark:before {
+                color: @link-hover-color;
+                font-size: 28px;
+                line-height: 28px;
+            }
+        }
     }
 
     > .discussion-body {

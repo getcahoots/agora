@@ -147,22 +147,23 @@ function WriteDiscussion($Discussion, &$Sender, &$Session) {
         ?>
     </td>
     <td class="discussions-entry">
-        <?php
-            if ($Discussion->LastCommentID != '') {
-               echo UserAnchor($Last).' <small>('.Gdn_Format::Date($Discussion->LastDate, 'html').')</small>';
-            } else {
-               echo UserAnchor($First).' <small>('.Gdn_Format::Date($Discussion->FirstDate, 'html').')</small>';
-            }
-        ?>
+        <?php if ($Discussion->LastCommentID != '') { ?>
+           <?php echo $Last->Name.' <small>('.Gdn_Format::Date($Discussion->LastDate, 'html').')</small>'; ?>
+        <?php } else  { ?>
+            <?php echo $First->Name.' <small>('.Gdn_Format::Date($Discussion->FirstDate, 'html').')</small>'; ?>
+       <?php } ?>
     </td>
     <td class="discussions-entry photo">
-        <?php
-            if ($Discussion->LastCommentID != '') {
-               echo UserPhoto($Last);
-            } else {
-               echo UserPhoto($First);
-            }
-        ?>
+
+        <?php if ($Discussion->LastCommentID != '') { ?>
+            <?php if ($Last->Photo != '') { ?>
+                <img class="ProfilePhoto ProfilePhotoMedium" src="<?php echo $Last->Photo; ?>" alt="Profile image <?php echo $Last->Name; ?>">
+            <?php } ?>
+        <?php } else { ?>
+            <?php if ($First->Photo != '') { ?>
+                <img class="ProfilePhoto ProfilePhotoMedium" src="<?php echo $First->Photo; ?>" alt="Profile image <?php echo $First->Name; ?>">
+            <?php } ?>
+        <?php } ?>
     </td>
 </tr>
 
