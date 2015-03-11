@@ -33,9 +33,13 @@ if (!function_exists('WriteComment'))
             </div>
         </div>
 
-        <div class="comments">
+        <?php $this->FireEvent('CommentHeading'); ?>
 
-        </div>
+        <ul class="comments">
+            <?php include $this->FetchViewLocation('comments'); ?>
+        </ul>
+
+        <?php $this->FireEvent('AfterComments'); ?>
 
         <?php echo WriteCommentForm(); ?>
 

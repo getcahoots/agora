@@ -64,7 +64,7 @@ function WriteComment($Comment, $Sender, $Session, $CurrentOffset) {
    static $UserPhotoFirst = NULL;
    if ($UserPhotoFirst === NULL)
       $UserPhotoFirst = C('Vanilla.Comment.UserPhotoFirst', TRUE);
-   $Author = Gdn::UserModel()->GetID($Comment->InsertUserID); //UserBuilder($Comment, 'Insert');
+   $Author = Gdn::UserModel()->GetID($Comment->InsertUserID);
    $Permalink = GetValue('Url', $Comment, '/discussion/comment/'.$Comment->CommentID.'/#Comment_'.$Comment->CommentID);
 
    // Set CanEditComments (whether to show checkboxes)
@@ -79,91 +79,47 @@ function WriteComment($Comment, $Sender, $Session, $CurrentOffset) {
    $Sender->EventArguments['CurrentOffset'] = $CurrentOffset;
    $Sender->EventArguments['Permalink'] = $Permalink;
 
-   // DEPRECATED ARGUMENTS (as of 2.1)
-    $Sender->EventArguments['Object'] = &$Comment;
-   $Sender->EventArguments['Type'] = 'Comment';
-
    // First comment template event
    $Sender->FireEvent('BeforeCommentDisplay'); ?>
-<li class="<?php echo $CssClass; ?>" id="<?php echo 'Comment_'.$Comment->CommentID; ?>">
-   <div class="Comment">
 
-      <?php
-      // Write a stub for the latest comment so it's easy to link to it from outside.
-      if ($CurrentOffset == Gdn::Controller()->Data('_LatestItem')) {
-         echo '<span id="latest"></span>';
-      }
-      ?>
-      <div class="Options">
-         <?php WriteCommentOptions($Comment); ?>
-      </div>
-      <?php $Sender->FireEvent('BeforeCommentMeta'); ?>
-      <div class="Item-Header CommentHeader">
-         <div class="AuthorWrap">
-            <span class="Author">
-               <?php
-               if ($UserPhotoFirst) {
-                  echo UserPhoto($Author);
-                  echo UserAnchor($Author, 'Username');
-               } else {
-                  echo UserAnchor($Author, 'Username');
-                  echo UserPhoto($Author);
-               }
-               echo FormatMeAction($Comment);
-               $Sender->FireEvent('AuthorPhoto');
-               ?>
-            </span>
-            <span class="AuthorInfo">
-               <?php
-               echo ' '.WrapIf(htmlspecialchars(GetValue('Title', $Author)), 'span', array('class' => 'MItem AuthorTitle'));
-               echo ' '.WrapIf(htmlspecialchars(GetValue('Location', $Author)), 'span', array('class' => 'MItem AuthorLocation'));
-               $Sender->FireEvent('AuthorInfo');
-               ?>
-            </span>
-         </div>
-         <div class="Meta CommentMeta CommentInfo">
-            <span class="MItem DateCreated">
-               <?php echo Anchor(Gdn_Format::Date($Comment->DateInserted, 'html'), $Permalink, 'Permalink', array('name' => 'Item_'.($CurrentOffset), 'rel' => 'nofollow')); ?>
-            </span>
+<li class="comment">
+
+    <?php $Sender->FireEvent('BeforeCommentMeta'); ?>
+
+    <div class="comment-body">
+
+        <div class="comment-body--avatar">
             <?php
-               echo DateUpdated($Comment, array('<span class="MItem">', '</span>'));
+                echo UserPhoto($Author);
             ?>
+                <span class="username">
+                    <?php echo UserAnchor($Author, 'Username'); ?>
+                </span>
+
             <?php
-            // Include source if one was set
-            if ($Source = GetValue('Source', $Comment))
-               echo Wrap(sprintf(T('via %s'), T($Source.' Source', $Source)), 'span', array('class' => 'MItem Source'));
-
-            $Sender->FireEvent('CommentInfo');
-            $Sender->FireEvent('InsideCommentMeta'); // DEPRECATED
-            $Sender->FireEvent('AfterCommentMeta'); // DEPRECATED
-
-            // Include IP Address if we have permission
-            if ($Session->CheckPermission('Garden.PersonalInfo.View'))
-               echo Wrap(IPAnchor($Comment->InsertIPAddress), 'span', array('class' => 'MItem IPAddress'));
-
+                echo FormatMeAction($Comment);
+                $Sender->FireEvent('AuthorPhoto');
+                $Sender->FireEvent('AuthorInfo');
             ?>
-         </div>
-      </div>
-      <div class="Item-BodyWrap">
-         <div class="Item-Body">
-            <div class="Message">
-               <?php
-                  echo FormatBody($Comment);
-               ?>
-            </div>
+
+            <?php echo Anchor(Gdn_Format::Date($Comment->DateInserted, 'html'), $Permalink, 'Permalink', array('name' => 'Item_'.($CurrentOffset), 'rel' => 'nofollow')); ?>
+            <?php $Sender->FireEvent('CommentInfo'); ?>
+        </div>
+
+        <div class="comment-body--content">
+            <?php echo FormatBody($Comment); ?>
+
             <?php
             $Sender->FireEvent('AfterCommentBody');
-            WriteReactions($Comment);
             if (GetValue('Attachments', $Comment)) {
                WriteAttachments($Comment->Attachments);
             }
             ?>
-         </div>
-      </div>
-   </div>
+        </div>
+
+    </div>
 </li>
-<?php
-    $Sender->FireEvent('AfterComment');
+<?php $Sender->FireEvent('AfterComment');
 }
 endif;
 
