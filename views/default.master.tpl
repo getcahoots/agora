@@ -64,11 +64,11 @@
           <div class="dialog__content">
               <h2>Unser <strong>Kodex</strong></h2>
 
-              <h3>No. 1</h3>
-              <p>Jemand musste Josef K. verleumdet haben, denn ohne dass er etwas Böses getan hätte, wurde er eines Morgens verhaftet. »Wie ein Hund!« sagte er, es war, als sollte die Scham ihn überleben.</p>
+              <h3>Achtet auf die Qualität der Quellen</h3>
+              <p>Damit eine Verbindung den Weg in das Add-On findet, muss sie ausreichend belegt sein. Links zur Wikipedia oder obskuren Blogs werden von uns grundsätzlich nicht als Quelle anerkannt. Gute Quellen sind z.B. Mitgliederlisten, die Webseiten der Organisationen selbst oder Artikel/Berichte auf allgemein anerkannten Nachrichtenseiten.</p>
 
-              <h3>No. 2</h3>
-              <p>Jemand musste Josef K. verleumdet haben, denn ohne dass er etwas Böses getan hätte, wurde er eines Morgens verhaftet. »Wie ein Hund!« sagte er, es war, als sollte die Scham ihn überleben.</p>
+              <h3>Respektiert die Privatssphäre</h3>
+              <p>Bitte respektiert die Privatssphäre der Journalisten. Verbindungen müssen relevant für die journalistische Tätigkeit sein und durch öffentliche Quellen eindeutig nachvollziehbar.</p>
 
               <div class="dialog-buttons">
                   <button class="Button Primary Action" data-dialog-close>okidoki</button>
