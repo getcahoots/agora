@@ -1,1 +1,1739 @@
-!function(e,t){"object"==typeof exports?module.exports=t():"function"==typeof define&&define.amd?define(t):e.Spinner=t()}(this,function(){"use strict";function e(e,t){var i,n=document.createElement(e||"div");for(i in t)n[i]=t[i];return n}function t(e){for(var t=1,i=arguments.length;i>t;t++)e.appendChild(arguments[t]);return e}function i(e,t,i,n){var a=["opacity",t,~~(100*e),i,n].join("-"),o=.01+i/n*100,r=Math.max(1-(1-e)/t*(100-o),e),s=l.substring(0,l.indexOf("Animation")).toLowerCase(),c=s&&"-"+s+"-"||"";return u[a]||(p.insertRule("@"+c+"keyframes "+a+"{0%{opacity:"+r+"}"+o+"%{opacity:"+e+"}"+(o+.01)+"%{opacity:1}"+(o+t)%100+"%{opacity:"+e+"}100%{opacity:"+r+"}}",p.cssRules.length),u[a]=1),a}function n(e,t){var i,n,a=e.style;for(t=t.charAt(0).toUpperCase()+t.slice(1),n=0;n<d.length;n++)if(i=d[n]+t,void 0!==a[i])return i;return void 0!==a[t]?t:void 0}function a(e,t){for(var i in t)e.style[n(e,i)||i]=t[i];return e}function o(e){for(var t=1;t<arguments.length;t++){var i=arguments[t];for(var n in i)void 0===e[n]&&(e[n]=i[n])}return e}function r(e,t){return"string"==typeof e?e:e[t%e.length]}function s(e){this.opts=o(e||{},s.defaults,f)}function c(){function i(t,i){return e("<"+t+' xmlns="urn:schemas-microsoft.com:vml" class="spin-vml">',i)}p.addRule(".spin-vml","behavior:url(#default#VML)"),s.prototype.lines=function(e,n){function o(){return a(i("group",{coordsize:d+" "+d,coordorigin:-l+" "+-l}),{width:d,height:d})}function s(e,s,c){t(p,t(a(o(),{rotation:360/n.lines*e+"deg",left:~~s}),t(a(i("roundrect",{arcsize:n.corners}),{width:l,height:n.width,left:n.radius,top:-n.width>>1,filter:c}),i("fill",{color:r(n.color,e),opacity:n.opacity}),i("stroke",{opacity:0}))))}var c,l=n.length+n.width,d=2*l,u=2*-(n.width+n.length)+"px",p=a(o(),{position:"absolute",top:u,left:u});if(n.shadow)for(c=1;c<=n.lines;c++)s(c,-2,"progid:DXImageTransform.Microsoft.Blur(pixelradius=2,makeshadow=1,shadowopacity=.3)");for(c=1;c<=n.lines;c++)s(c);return t(e,p)},s.prototype.opacity=function(e,t,i,n){var a=e.firstChild;n=n.shadow&&n.lines||0,a&&t+n<a.childNodes.length&&(a=a.childNodes[t+n],a=a&&a.firstChild,a=a&&a.firstChild,a&&(a.opacity=i))}}var l,d=["webkit","Moz","ms","O"],u={},p=function(){var i=e("style",{type:"text/css"});return t(document.getElementsByTagName("head")[0],i),i.sheet||i.styleSheet}(),f={lines:12,length:7,width:5,radius:10,rotate:0,corners:1,color:"#000",direction:1,speed:1,trail:100,opacity:.25,fps:20,zIndex:2e9,className:"spinner",top:"50%",left:"50%",position:"absolute"};s.defaults={},o(s.prototype,{spin:function(t){this.stop();var i=this,n=i.opts,o=i.el=a(e(0,{className:n.className}),{position:n.position,width:0,zIndex:n.zIndex});if(a(o,{left:n.left,top:n.top}),t&&t.insertBefore(o,t.firstChild||null),o.setAttribute("role","progressbar"),i.lines(o,i.opts),!l){var r,s=0,c=(n.lines-1)*(1-n.direction)/2,d=n.fps,u=d/n.speed,p=(1-n.opacity)/(u*n.trail/100),f=u/n.lines;!function h(){s++;for(var e=0;e<n.lines;e++)r=Math.max(1-(s+(n.lines-e)*f)%u*p,n.opacity),i.opacity(o,e*n.direction+c,r,n);i.timeout=i.el&&setTimeout(h,~~(1e3/d))}()}return i},stop:function(){var e=this.el;return e&&(clearTimeout(this.timeout),e.parentNode&&e.parentNode.removeChild(e),this.el=void 0),this},lines:function(n,o){function s(t,i){return a(e(),{position:"absolute",width:o.length+o.width+"px",height:o.width+"px",background:t,boxShadow:i,transformOrigin:"left",transform:"rotate("+~~(360/o.lines*d+o.rotate)+"deg) translate("+o.radius+"px,0)",borderRadius:(o.corners*o.width>>1)+"px"})}for(var c,d=0,u=(o.lines-1)*(1-o.direction)/2;d<o.lines;d++)c=a(e(),{position:"absolute",top:1+~(o.width/2)+"px",transform:o.hwaccel?"translate3d(0,0,0)":"",opacity:o.opacity,animation:l&&i(o.opacity,o.trail,u+d*o.direction,o.lines)+" "+1/o.speed+"s linear infinite"}),o.shadow&&t(c,a(s("#000","0 0 4px #000"),{top:"2px"})),t(n,t(c,s(r(o.color,d),"0 0 1px rgba(0,0,0,.1)")));return n},opacity:function(e,t,i){t<e.childNodes.length&&(e.childNodes[t].style.opacity=i)}});var h=a(e("group"),{behavior:"url(#default#VML)"});return!n(h,"transform")&&h.adj?c():l=n(h,"animation"),s}),function(e){if("object"==typeof exports)e(require("jquery"),require("spin.js"));else if("function"==typeof define&&define.amd)define(["jquery","spin"],e);else{if(!window.Spinner)throw new Error("Spin.js not present");e(window.jQuery,window.Spinner)}}(function(e,t){e.fn.spin=function(i,n){return this.each(function(){var a=e(this),o=a.data();o.spinner&&(o.spinner.stop(),delete o.spinner),i!==!1&&(i=e.extend({color:n||a.css("color")},e.fn.spin.presets[i]||i),o.spinner=new t(i).spin(this))})},e.fn.spin.presets={tiny:{lines:8,length:2,width:2,radius:3},small:{lines:8,length:4,width:3,radius:5},large:{lines:10,length:8,width:4,radius:8}}}),function(e,t,i){e.ichecked||(e.ichecked=function(){i=e.jQuery||e.Zepto;var n={autoInit:!0,autoAjax:!0,tap:!0,checkboxClass:"icheckbox",radioClass:"iradio",checkedClass:"checked",disabledClass:"disabled",indeterminateClass:"indeterminate",hoverClass:"hover",callbacks:{ifCreated:!1},classes:{base:"icheck",div:"#-item",area:"#-area-",input:"#-input",label:"#-label"}};e.icheck=i.extend(n,e.icheck);var a=e.navigator.userAgent,o=/MSIE [5-8]/.test(a)||t.documentMode<9,r=/Opera Mini/.test(a),s=n.classes.base,c=n.classes.div.replace("#",s),l=n.classes.area.replace("#",s),d=n.classes.input.replace("#",s),u=n.classes.label.replace("#",s);delete n.classes;var p,f,h="input[type=checkbox],input[type=radio]",m={},g={},y=new RegExp(s+"\\[(.*?)\\]"),b=function(e,t,i){return e&&(t=y.exec(e),t&&g[t[1]]&&(i=t[1])),i},v=e.getComputedStyle,k=e.PointerEvent||e.MSPointerEvent,C="ontouchend"in e,w=/mobile|tablet|phone|ip(ad|od)|android|silk|webos/i.test(a),x=["mouse","down","up","over","out"],N=e.PointerEvent?["pointer",x[1],x[2],x[3],x[4]]:["MSPointer","Down","Up","Over","Out"],j=["touch","start","end"],T=C&&w||k,E=T?C?j[0]+j[1]:N[0]+N[3]:x[0]+x[3],S=T?C?j[0]+j[2]:N[0]+N[4]:x[0]+x[4],A=T?C?!1:N[0]+N[1]:x[0]+x[1],D=T?C?!1:N[0]+N[2]:x[0]+x[2],I=r?"":E+".i "+S+".i ",M=!r&&A?A+".i "+D+".i":"",O=n.areaStyle!==!1?'position:absolute;display:block;content:"";top:#;bottom:#;left:#;right:#;':0,P="position:absolute!;display:block!;outline:none!;"+(n.debug?"":"opacity:0!;z-index:-99!;clip:rect(0 0 0 0)!;"),L=function(i,n,a){p||(p=t.createElement("style"),(t.head||t.getElementsByTagName("head")[0]).appendChild(p),e.createPopup||p.appendChild(t.createTextNode("")),f=p.sheet||p.styleSheet),n||(n="div."+(a?l+a+":after":c+" input."+d)),i=i.replace(/!/g," !important"),f.addRule?f.addRule(n,i,0):f.insertRule(n+"{"+i+"}",0)};L(P),(C&&w||r)&&L("cursor:pointer!;","label."+u+",div."+c),L("display:none!","iframe.icheck-frame");var R=function(e,t,i,n,a,o,r){return n=e.className,n?(a=" "+n+" ",1===i?o=t:0===i?r=t:(o=t[0],r=t[1]),o&&a.indexOf(" "+o+" ")<0&&(a+=o+" "),r&&~a.indexOf(" "+r+" ")&&(a=a.replace(" "+r+" "," ")),a=a.replace(/^\s+|\s+$/g,""),a!==n&&(e.className=a),a):void 0},z=function(e,t,n,a,o,r){g[t]&&(a=g[t],o=a.className,r=i(U(e,"div",o)),r.length&&(i(e).removeClass(d+" "+o).attr("style",a.style),i("label."+a.esc).removeClass(u+" "+o),i(r).replaceWith(i(e)),n&&q(e,t,n)),g[t]=!1)},B=function(e,t,n,a,o){for(n=[],a=e.length;a--;)if(t=e[a],t.type)~h.indexOf(t.type)&&n.push(t);else for(t=i(t).find(h),o=t.length;o--;)n.push(t[o]);return n},U=function(e,t,i,n){for(;e&&9!==e.nodeType;)if(e=e.parentNode,e&&e.tagName==t.toUpperCase()&&~e.className.indexOf(i)){n=e;break}return n},q=function(e,t,n){n="if"+n,g[t].callbacks&&g[t].callbacks[n]!==!1&&(i(e).trigger(n),"function"==typeof g[t].callbacks[n]&&g[t].callbacks[n](e,g[t]))},F=function(a,o,r,p){for(var f=B(a),y=f.length;y--;){for(var k,C,w,x,N,j,T,E,S,A,D,I,M,P,F,V,$,W,H=f[y],X=H.attributes,Z={},_=X.length,G={},J={},K=H.id,Y=H.className,et=H.type,tt=i.cache?i.cache[H[i.expando]]:0,it=b(Y),nt="",at=!1,ot=[],rt=e.FastClick?" needsclick":"";_--;)k=X[_].name,C=X[_].value,~k.indexOf("data-")&&(G[k.substr(5)]=C),"style"==k&&(T=C),Z[k]=C;tt&&tt.data&&(G=i.extend(G,tt.data));for(w in G)C=G[w],("true"==C||"false"==C)&&(C="true"==C),J[w.replace(/checkbox|radio|class|id|label/g,function(e,t){return 0===t?e:e.charAt(0).toUpperCase()+e.slice(1)})]=C;if(E=i.extend({},n,e.icheck,J,o),A=E.handle,"checkbox"!==A&&"radio"!==A&&(A=h),E.init!==!1&&~A.indexOf(et)){for(it&&z(H,it);!g[it];)if(it=Math.random().toString(36).substr(2,5),!g[it]){S=s+"["+it+"]";break}if(delete E.autoInit,delete E.autoAjax,E.style=T||"",E.className=S,E.esc=S.replace(/(\[|\])/g,"\\$1"),g[it]=E,P=U(H,"label",""),P&&(!P.htmlFor&&K&&(P.htmlFor=K),ot.push(P)),K)for(F=i('label[for="'+K+'"]');F.length--;)M=F[F.length],M!==P&&ot.push(M);for(W=ot.length;W--;)M=ot[W],$=M.className,V=b($),$=V?R(M,s+"["+V+"]",0):($?$+" ":"")+u,M.className=$+" "+S+rt;if(D=t.createElement("div"),E.inherit)for(x=E.inherit.split(/\s*,\s*/),j=x.length;j--;)N=x[j],void 0!==Z[N]&&("class"==N?nt+=Z[N]+" ":D.setAttribute(N,"id"==N?s+"-"+Z[N]:Z[N]));nt+=E[et+"Class"],nt+=" "+c+" "+S,E.area&&O&&(at=0|(""+E.area).replace(/%|px|em|\+|-/g,""),at&&(m[at]||(L(O.replace(/#/g,"-"+at+"%"),!1,at),m[at]=!0),nt+=" "+l+at)),D.className=nt+rt,H.className=(Y?Y+" ":"")+d+" "+S,H.parentNode.replaceChild(D,H),D.appendChild(H),E.insert&&i(D).append(E.insert),at&&(I=v?v(D,null).getPropertyValue("position"):D.currentStyle.position,"static"==I&&(D.style.position="relative")),Q(H,D,it,"updated",!0,!1,r),g[it].done=!0,p||q(H,it,"Created")}}},Q=function(e,t,i,n,a,o,r){var s=g[i],c={},l={};c.checked=[e.checked,"Checked","Unchecked"],o&&!r||"click"===n||(c.disabled=[e.disabled,"Disabled","Enabled"],c.indeterminate=["true"==e.getAttribute("indeterminate")||!!e.indeterminate,"Indeterminate","Determinate"]),"updated"==n||"click"==n?(l.checked=o?!c.checked[0]:c.checked[0],o&&!r||"click"===n||(l.disabled=c.disabled[0],l.indeterminate=c.indeterminate[0])):"checked"==n||"unchecked"==n?l.checked="checked"==n:"disabled"==n||"enabled"==n?l.disabled="disabled"==n:"indeterminate"==n||"determinate"==n?l.indeterminate="determinate"!==n:l.checked=!c.checked[0],V(e,t,c,l,i,s,n,a,o,r)},V=function(e,t,n,a,o,r,s,c,l,d,u){var p,f,h,m,y,v,k,C,x,N,j,T,E,S,A=e.type,D="radio"==A?"Radio":"Checkbox",I="LabelClass";if(t||(t=U(e,"div",r.className)),t){for(p in a)if(f=a[p],n[p][0]!==f&&"updated"!==s&&"click"!==s&&(e[p]=f),d&&(f?e.setAttribute(p,p):e.removeAttribute(p)),r[p]!==f){if(r[p]=f,E=!0,"checked"==p&&(S=!0,!u&&f&&(g[o].done||d)&&"radio"==A&&e.name))for(v=U(e,"form",""),k='input[name="'+e.name+'"]',k=v&&!d?i(v).find(k):i(k),C=k.length;C--;)x=k[C],N=b(x.className),e!==x&&g[N]&&g[N].checked&&(j={checked:[!0,"Checked","Unchecked"]},T={checked:!1},V(x,!1,j,T,N,g[N],"updated",c,l,d,!0));if(h=[r[p+"Class"],r[p+D+"Class"],r[n[p][1]+"Class"],r[n[p][1]+D+"Class"],r[p+I]],m=[h[3]||h[2],h[1]||h[0]],f&&m.reverse(),R(t,m),r.mirror&&h[4])for(y=i("label."+r.esc);y.length--;)R(y[y.length],h[4],f?1:0);(!c||u)&&q(e,o,n[p][f?1:2])}(!c||u)&&(E&&q(e,o,"Changed"),S&&q(e,o,"Toggled")),r.cursor&&!w&&(r.disabled||r.pointer?r.disabled&&r.pointer&&(t.style.cursor="default",r.pointer=!1):(t.style.cursor="pointer",r.pointer=!0)),g[o]=r}};i.fn.icheck=function(e,t){if(/^(checked|unchecked|indeterminate|determinate|disabled|enabled|updated|toggle|destroy|data|styler)$/.test(e))for(var i=B(this),n=i.length;n--;){var a=i[n],o=b(a.className);if(o){if("data"==e)return g[o];if("styler"==e)return U(a,"div",g[o].className);"destroy"==e?z(a,o,"Destroyed"):Q(a,!1,o,e),"function"==typeof t&&t(a)}}else"object"!=typeof e&&e||F(this,e||{});return this};var $;i(t).on("click.i "+I+M,"label."+u+",div."+c,function(e){var t=this,n=b(t.className);if(n){var a,s,c,l,d=e.type,u=g[n],p=u.esc,f="DIV"==t.tagName,h=[["label",u.activeLabelClass,u.hoverLabelClass],["div",u.activeClass,u.hoverClass]];if(f&&h.reverse(),d==A||d==D){if(h[0][1]&&R(t,h[0][1],d==A?1:0),u.mirror&&h[1][1])for(c=i(h[1][0]+"."+p);c.length--;)R(c[c.length],h[1][1],d==A?1:0);f&&d==D&&u.tap&&w&&k&&!r&&(l=!0)}else if(d==E||d==S){if(h[0][2]&&R(t,h[0][2],d==E?1:0),u.mirror&&h[1][2])for(c=i(h[1][0]+"."+p);c.length--;)R(c[c.length],h[1][2],d==E?1:0);f&&d==S&&u.tap&&w&&C&&!r&&(l=!0)}else f&&(w&&(C||k)&&u.tap&&!r||(l=!0));l&&setTimeout(function(){s=e.currentTarget||{},"LABEL"!==s.tagName&&(!u.change||+new Date-u.change>100)&&(a=i(t).find("input."+p).click(),(o||r)&&a.change())},2)}}).on("click.i change.i focusin.i focusout.i keyup.i keydown.i","input."+d,function(e){var t=this,n=b(t.className);if(n){var a,o,r=e.type,s=g[n],c=s.esc,l="click"==r?!1:U(t,"div",s.className);if("click"==r)g[n].change=+new Date,e.stopPropagation();else if("change"==r)l&&!t.disabled&&Q(t,l,n,"click");else if(~r.indexOf("focus")){if(o=[s.focusClass,s.focusLabelClass],o[0]&&l&&R(l,o[0],"focusin"==r?1:0),s.mirror&&o[1])for(a=i("label."+c);a.length--;)R(a[a.length],o[1],"focusin"==r?1:0)}else l&&!t.disabled&&("keyup"==r?(("checkbox"==t.type&&32==e.keyCode&&s.keydown||"radio"==t.type&&!t.checked)&&Q(t,l,n,"click",!1,!0),g[n].keydown=!1,g[$]&&(g[$].keydown=!1)):($=n,g[n].keydown=!0))}}).ready(function(){if(e.icheck.autoInit&&i("."+s).icheck(),e.jQuery){var n=t.body||t.getElementsByTagName("body")[0];i.ajaxSetup({converters:{"text html":function(a){if(e.icheck.autoAjax&&n){var r,c=t.createElement("iframe");o||(c.style="display:none"),c.className="iframe.icheck-frame",c.src="about:blank",n.appendChild(c),r=c.contentDocument?c.contentDocument:c.contentWindow.document,r.open(),r.write(a),r.close(),n.removeChild(c),r=i(r),F(r.find("."+s),{},!0),r=r[0],a=(r.body||r.getElementsByTagName("body")[0]).innerHTML,r=null}return a}}})}})},"function"==typeof define&&define.amd?define("icheck",[e.jQuery?"jquery":"zepto"],e.ichecked):e.ichecked())}(window,document),function(e,t,i){"use strict";t.icheck={autoInit:!1,autoAjax:!1},e(i).on("ready ajaxSuccess",function(){e("input:not(.icheck-input)").icheck()}),e(function(){e(i).on("click",".ToggleFlyout",function(t){e(".InProgress",t.currentTarget).spin({lines:11,radius:5,length:5,width:2})}),e(i).on("click",".EditComment",function(t){e(".TinyProgress",e(t.currentTarget).closest(".Item")).empty().spin({lines:9,radius:3,length:3,width:2})}),e(i).on("click",".MorePager a",function(t){e(t.currentTarget).parent().spin({lines:9,radius:3,length:3,width:2})});var t=".Overlay",n="> .Popup",a=function(){var t=e(this),i=e('<div class="backdrop fade">');e("body").addClass("modal-open"),e(n,t).addClass("fade"),t.data("backdrop")||(t.data("backdrop",i),t.append(i)),setTimeout(function(){i.addClass("in").spin({lines:11,radius:10,length:10,width:4})},0)},o=function(){var t=e(this),i=t.data("backdrop");e(n,t).addClass("in"),i.length&&i.spin(!1)},r=function(){var i=e(this),a=i.data("backdrop");e(n,i).removeClass("in"),setTimeout(function(){a.length&&a.removeClass("in"),e("body").removeClass("modal-open")},150),setTimeout(function(){e(t).remove()},300)};e(i).on("popupLoading",function(){e(t).each(a)}).on("popupReveal",function(){e(t).each(o)}).on("popupClose",function(){e(t).each(r)});var s=["a.Delete","a.DeleteComment","a.DeleteFile","a.PopConfirm","a.ClearConversation","ul#DP_Remove a"];e(i).on("click",s.join(),function(){e(i).trigger("popupLoading"),setTimeout(function(){e(i).trigger("popupReveal")},150)})}),e.popup.close=function(t){return e(i).unbind("keydown.popup"),e("#"+t.popupId).trigger("popupClose"),!1}}(jQuery,window,document);
+/**
+ * Copyright (c) 2011-2014 Felix Gnass
+ * Licensed under the MIT license
+ */
+(function(root, factory) {
+
+  /* CommonJS */
+  if (typeof exports == 'object')  module.exports = factory()
+
+  /* AMD module */
+  else if (typeof define == 'function' && define.amd) define(factory)
+
+  /* Browser global */
+  else root.Spinner = factory()
+}
+(this, function() {
+  "use strict";
+
+  var prefixes = ['webkit', 'Moz', 'ms', 'O'] /* Vendor prefixes */
+    , animations = {} /* Animation rules keyed by their name */
+    , useCssAnimations /* Whether to use CSS animations or setTimeout */
+
+  /**
+   * Utility function to create elements. If no tag name is given,
+   * a DIV is created. Optionally properties can be passed.
+   */
+  function createEl(tag, prop) {
+    var el = document.createElement(tag || 'div')
+      , n
+
+    for(n in prop) el[n] = prop[n]
+    return el
+  }
+
+  /**
+   * Appends children and returns the parent.
+   */
+  function ins(parent /* child1, child2, ...*/) {
+    for (var i=1, n=arguments.length; i<n; i++)
+      parent.appendChild(arguments[i])
+
+    return parent
+  }
+
+  /**
+   * Insert a new stylesheet to hold the @keyframe or VML rules.
+   */
+  var sheet = (function() {
+    var el = createEl('style', {type : 'text/css'})
+    ins(document.getElementsByTagName('head')[0], el)
+    return el.sheet || el.styleSheet
+  }())
+
+  /**
+   * Creates an opacity keyframe animation rule and returns its name.
+   * Since most mobile Webkits have timing issues with animation-delay,
+   * we create separate rules for each line/segment.
+   */
+  function addAnimation(alpha, trail, i, lines) {
+    var name = ['opacity', trail, ~~(alpha*100), i, lines].join('-')
+      , start = 0.01 + i/lines * 100
+      , z = Math.max(1 - (1-alpha) / trail * (100-start), alpha)
+      , prefix = useCssAnimations.substring(0, useCssAnimations.indexOf('Animation')).toLowerCase()
+      , pre = prefix && '-' + prefix + '-' || ''
+
+    if (!animations[name]) {
+      sheet.insertRule(
+        '@' + pre + 'keyframes ' + name + '{' +
+        '0%{opacity:' + z + '}' +
+        start + '%{opacity:' + alpha + '}' +
+        (start+0.01) + '%{opacity:1}' +
+        (start+trail) % 100 + '%{opacity:' + alpha + '}' +
+        '100%{opacity:' + z + '}' +
+        '}', sheet.cssRules.length)
+
+      animations[name] = 1
+    }
+
+    return name
+  }
+
+  /**
+   * Tries various vendor prefixes and returns the first supported property.
+   */
+  function vendor(el, prop) {
+    var s = el.style
+      , pp
+      , i
+
+    prop = prop.charAt(0).toUpperCase() + prop.slice(1)
+    for(i=0; i<prefixes.length; i++) {
+      pp = prefixes[i]+prop
+      if(s[pp] !== undefined) return pp
+    }
+    if(s[prop] !== undefined) return prop
+  }
+
+  /**
+   * Sets multiple style properties at once.
+   */
+  function css(el, prop) {
+    for (var n in prop)
+      el.style[vendor(el, n)||n] = prop[n]
+
+    return el
+  }
+
+  /**
+   * Fills in default values.
+   */
+  function merge(obj) {
+    for (var i=1; i < arguments.length; i++) {
+      var def = arguments[i]
+      for (var n in def)
+        if (obj[n] === undefined) obj[n] = def[n]
+    }
+    return obj
+  }
+
+  /**
+   * Returns the line color from the given string or array.
+   */
+  function getColor(color, idx) {
+    return typeof color == 'string' ? color : color[idx % color.length]
+  }
+
+  // Built-in defaults
+
+  var defaults = {
+    lines: 12,            // The number of lines to draw
+    length: 7,            // The length of each line
+    width: 5,             // The line thickness
+    radius: 10,           // The radius of the inner circle
+    rotate: 0,            // Rotation offset
+    corners: 1,           // Roundness (0..1)
+    color: '#000',        // #rgb or #rrggbb
+    direction: 1,         // 1: clockwise, -1: counterclockwise
+    speed: 1,             // Rounds per second
+    trail: 100,           // Afterglow percentage
+    opacity: 1/4,         // Opacity of the lines
+    fps: 20,              // Frames per second when using setTimeout()
+    zIndex: 2e9,          // Use a high z-index by default
+    className: 'spinner', // CSS class to assign to the element
+    top: '50%',           // center vertically
+    left: '50%',          // center horizontally
+    position: 'absolute'  // element position
+  }
+
+  /** The constructor */
+  function Spinner(o) {
+    this.opts = merge(o || {}, Spinner.defaults, defaults)
+  }
+
+  // Global defaults that override the built-ins:
+  Spinner.defaults = {}
+
+  merge(Spinner.prototype, {
+
+    /**
+     * Adds the spinner to the given target element. If this instance is already
+     * spinning, it is automatically removed from its previous target b calling
+     * stop() internally.
+     */
+    spin: function(target) {
+      this.stop()
+
+      var self = this
+        , o = self.opts
+        , el = self.el = css(createEl(0, {className: o.className}), {position: o.position, width: 0, zIndex: o.zIndex})
+
+      css(el, {
+        left: o.left,
+        top: o.top
+      })
+        
+      if (target) {
+        target.insertBefore(el, target.firstChild||null)
+      }
+
+      el.setAttribute('role', 'progressbar')
+      self.lines(el, self.opts)
+
+      if (!useCssAnimations) {
+        // No CSS animation support, use setTimeout() instead
+        var i = 0
+          , start = (o.lines - 1) * (1 - o.direction) / 2
+          , alpha
+          , fps = o.fps
+          , f = fps/o.speed
+          , ostep = (1-o.opacity) / (f*o.trail / 100)
+          , astep = f/o.lines
+
+        ;(function anim() {
+          i++;
+          for (var j = 0; j < o.lines; j++) {
+            alpha = Math.max(1 - (i + (o.lines - j) * astep) % f * ostep, o.opacity)
+
+            self.opacity(el, j * o.direction + start, alpha, o)
+          }
+          self.timeout = self.el && setTimeout(anim, ~~(1000/fps))
+        })()
+      }
+      return self
+    },
+
+    /**
+     * Stops and removes the Spinner.
+     */
+    stop: function() {
+      var el = this.el
+      if (el) {
+        clearTimeout(this.timeout)
+        if (el.parentNode) el.parentNode.removeChild(el)
+        this.el = undefined
+      }
+      return this
+    },
+
+    /**
+     * Internal method that draws the individual lines. Will be overwritten
+     * in VML fallback mode below.
+     */
+    lines: function(el, o) {
+      var i = 0
+        , start = (o.lines - 1) * (1 - o.direction) / 2
+        , seg
+
+      function fill(color, shadow) {
+        return css(createEl(), {
+          position: 'absolute',
+          width: (o.length+o.width) + 'px',
+          height: o.width + 'px',
+          background: color,
+          boxShadow: shadow,
+          transformOrigin: 'left',
+          transform: 'rotate(' + ~~(360/o.lines*i+o.rotate) + 'deg) translate(' + o.radius+'px' +',0)',
+          borderRadius: (o.corners * o.width>>1) + 'px'
+        })
+      }
+
+      for (; i < o.lines; i++) {
+        seg = css(createEl(), {
+          position: 'absolute',
+          top: 1+~(o.width/2) + 'px',
+          transform: o.hwaccel ? 'translate3d(0,0,0)' : '',
+          opacity: o.opacity,
+          animation: useCssAnimations && addAnimation(o.opacity, o.trail, start + i * o.direction, o.lines) + ' ' + 1/o.speed + 's linear infinite'
+        })
+
+        if (o.shadow) ins(seg, css(fill('#000', '0 0 4px ' + '#000'), {top: 2+'px'}))
+        ins(el, ins(seg, fill(getColor(o.color, i), '0 0 1px rgba(0,0,0,.1)')))
+      }
+      return el
+    },
+
+    /**
+     * Internal method that adjusts the opacity of a single line.
+     * Will be overwritten in VML fallback mode below.
+     */
+    opacity: function(el, i, val) {
+      if (i < el.childNodes.length) el.childNodes[i].style.opacity = val
+    }
+
+  })
+
+
+  function initVML() {
+
+    /* Utility function to create a VML tag */
+    function vml(tag, attr) {
+      return createEl('<' + tag + ' xmlns="urn:schemas-microsoft.com:vml" class="spin-vml">', attr)
+    }
+
+    // No CSS transforms but VML support, add a CSS rule for VML elements:
+    sheet.addRule('.spin-vml', 'behavior:url(#default#VML)')
+
+    Spinner.prototype.lines = function(el, o) {
+      var r = o.length+o.width
+        , s = 2*r
+
+      function grp() {
+        return css(
+          vml('group', {
+            coordsize: s + ' ' + s,
+            coordorigin: -r + ' ' + -r
+          }),
+          { width: s, height: s }
+        )
+      }
+
+      var margin = -(o.width+o.length)*2 + 'px'
+        , g = css(grp(), {position: 'absolute', top: margin, left: margin})
+        , i
+
+      function seg(i, dx, filter) {
+        ins(g,
+          ins(css(grp(), {rotation: 360 / o.lines * i + 'deg', left: ~~dx}),
+            ins(css(vml('roundrect', {arcsize: o.corners}), {
+                width: r,
+                height: o.width,
+                left: o.radius,
+                top: -o.width>>1,
+                filter: filter
+              }),
+              vml('fill', {color: getColor(o.color, i), opacity: o.opacity}),
+              vml('stroke', {opacity: 0}) // transparent stroke to fix color bleeding upon opacity change
+            )
+          )
+        )
+      }
+
+      if (o.shadow)
+        for (i = 1; i <= o.lines; i++)
+          seg(i, -2, 'progid:DXImageTransform.Microsoft.Blur(pixelradius=2,makeshadow=1,shadowopacity=.3)')
+
+      for (i = 1; i <= o.lines; i++) seg(i)
+      return ins(el, g)
+    }
+
+    Spinner.prototype.opacity = function(el, i, val, o) {
+      var c = el.firstChild
+      o = o.shadow && o.lines || 0
+      if (c && i+o < c.childNodes.length) {
+        c = c.childNodes[i+o]; c = c && c.firstChild; c = c && c.firstChild
+        if (c) c.opacity = val
+      }
+    }
+  }
+
+  var probe = css(createEl('group'), {behavior: 'url(#default#VML)'})
+
+  if (!vendor(probe, 'transform') && probe.adj) initVML()
+  else useCssAnimations = vendor(probe, 'animation')
+
+  return Spinner
+
+}));
+
+/**
+ * Copyright (c) 2011-2014 Felix Gnass
+ * Licensed under the MIT license
+ */
+
+/*
+
+Basic Usage:
+============
+
+$('#el').spin(); // Creates a default Spinner using the text color of #el.
+$('#el').spin({ ... }); // Creates a Spinner using the provided options.
+
+$('#el').spin(false); // Stops and removes the spinner.
+
+Using Presets:
+==============
+
+$('#el').spin('small'); // Creates a 'small' Spinner using the text color of #el.
+$('#el').spin('large', '#fff'); // Creates a 'large' white Spinner.
+
+Adding a custom preset:
+=======================
+
+$.fn.spin.presets.flower = {
+  lines: 9,
+  length: 10,
+  width: 20,
+  radius: 0
+}
+
+$('#el').spin('flower', 'red');
+
+*/
+
+(function(factory) {
+
+  if (typeof exports == 'object') {
+    // CommonJS
+    factory(require('jquery'), require('spin.js'))
+  }
+  else if (typeof define == 'function' && define.amd) {
+    // AMD, register as anonymous module
+    define(['jquery', 'spin'], factory)
+  }
+  else {
+    // Browser globals
+    if (!window.Spinner) throw new Error('Spin.js not present')
+    factory(window.jQuery, window.Spinner)
+  }
+
+}(function($, Spinner) {
+
+  $.fn.spin = function(opts, color) {
+
+    return this.each(function() {
+      var $this = $(this),
+        data = $this.data();
+
+      if (data.spinner) {
+        data.spinner.stop();
+        delete data.spinner;
+      }
+      if (opts !== false) {
+        opts = $.extend(
+          { color: color || $this.css('color') },
+          $.fn.spin.presets[opts] || opts
+        )
+        data.spinner = new Spinner(opts).spin(this)
+      }
+    })
+  }
+
+  $.fn.spin.presets = {
+    tiny: { lines: 8, length: 2, width: 2, radius: 3 },
+    small: { lines: 8, length: 4, width: 3, radius: 5 },
+    large: { lines: 10, length: 8, width: 4, radius: 8 }
+  }
+
+}));
+
+/*!
+ * iCheck v2.0.0, http://git.io/arlzeA
+ * ===================================
+ * Cross-platform checkboxes and radio buttons customization
+ *
+ * (c) Damir Sultanov - http://fronteed.com
+ * MIT Licensed
+ */
+
+(function(win, doc, $) {
+
+  // prevent multiple includes
+  if (!win.ichecked) {
+    win.ichecked = function() {
+      $ = win.jQuery || win.Zepto;
+
+      // default options
+      var defaults = {
+
+        // auto init on domready
+        autoInit: true,
+
+        // auto handle ajax loaded inputs
+        autoAjax: true,
+
+        // remove 300ms click delay on touch devices
+        tap: true,
+
+        // customization class names
+        checkboxClass: 'icheckbox',
+        radioClass: 'iradio',
+
+        checkedClass: 'checked',
+        disabledClass: 'disabled',
+        indeterminateClass: 'indeterminate',
+
+        hoverClass: 'hover',
+        // focusClass: 'focus',
+        // activeClass: 'active',
+
+        // default callbacks
+        callbacks: {
+          ifCreated: false
+        },
+
+        // appended class names
+        classes: {
+          base: 'icheck',
+          div: '#-item', // {base}-item
+          area: '#-area-', // {base}-area-{value}
+          input: '#-input', // {base}-input
+          label: '#-label' // {base}-label
+        }
+      };
+
+      // extend default options
+      win.icheck = $.extend(defaults, win.icheck);
+
+      // useragent sniffing
+      var ua = win.navigator.userAgent;
+      var ie = /MSIE [5-8]/.test(ua) || doc.documentMode < 9;
+      var operaMini = /Opera Mini/.test(ua);
+
+      // classes cache
+      var baseClass = defaults.classes.base;
+      var divClass = defaults.classes.div.replace('#', baseClass);
+      var areaClass = defaults.classes.area.replace('#', baseClass);
+      var nodeClass = defaults.classes.input.replace('#', baseClass);
+      var labelClass = defaults.classes.label.replace('#', baseClass);
+
+      // unset init classes
+      delete defaults.classes;
+
+      // default filter
+      var filter = 'input[type=checkbox],input[type=radio]';
+
+      // clickable areas container
+      var areas = {};
+
+      // hashes container
+      var hashes = {};
+
+      // hash recognizer
+      var recognizer = new RegExp(baseClass + '\\[(.*?)\\]');
+
+      // hash extractor
+      var extract = function(className, matches, value) {
+        if (!!className) {
+          matches = recognizer.exec(className);
+
+          if (matches && hashes[matches[1]]) {
+            value = matches[1];
+          }
+        }
+
+        return value;
+      };
+
+      // detect computed style support
+      var computed = win.getComputedStyle;
+
+      // detect pointer events support
+      var isPointer = win.PointerEvent || win.MSPointerEvent;
+
+      // detect touch events support
+      var isTouch = 'ontouchend' in win;
+
+      // detect mobile users
+      var isMobile = /mobile|tablet|phone|ip(ad|od)|android|silk|webos/i.test(ua);
+
+      // setup events
+      var mouse = ['mouse', 'down', 'up', 'over', 'out']; // bubbling hover
+      var pointer = win.PointerEvent ? ['pointer', mouse[1], mouse[2], mouse[3], mouse[4]] : ['MSPointer', 'Down', 'Up', 'Over', 'Out'];
+      var touch = ['touch', 'start', 'end'];
+      var noMouse = (isTouch && isMobile) || isPointer;
+
+      // choose events
+      var hoverStart = noMouse ? (isTouch ? touch[0] + touch[1] : pointer[0] + pointer[3]) : mouse[0] + mouse[3];
+      var hoverEnd = noMouse ? (isTouch ? touch[0] + touch[2] : pointer[0] + pointer[4]) : mouse[0] + mouse[4];
+      var tapStart = noMouse ? (isTouch ? false : pointer[0] + pointer[1]) : mouse[0] + mouse[1];
+      var tapEnd = noMouse ? (isTouch ? false : pointer[0] + pointer[2]) : mouse[0] + mouse[2];
+      var hover = !operaMini ? hoverStart + '.i ' + hoverEnd + '.i ' : '';
+      var tap = !operaMini && tapStart ? tapStart + '.i ' + tapEnd + '.i' : '';
+
+      // styles options
+      var styleTag;
+      var styleList;
+      var styleArea = defaults.areaStyle !== false ? 'position:absolute;display:block;content:"";top:#;bottom:#;left:#;right:#;' : 0;
+      var styleInput = 'position:absolute!;display:block!;outline:none!;' + (defaults.debug ? '' : 'opacity:0!;z-index:-99!;clip:rect(0 0 0 0)!;');
+
+      // styles addition
+      var style = function(rules, selector, area) {
+        if (!styleTag) {
+
+          // create container
+          styleTag = doc.createElement('style');
+
+          // append to header
+          (doc.head || doc.getElementsByTagName('head')[0]).appendChild(styleTag);
+
+          // webkit hack
+          if (!win.createPopup) {
+            styleTag.appendChild(doc.createTextNode(''));
+          }
+
+          styleList = styleTag.sheet || styleTag.styleSheet;
+        }
+
+        // choose selector
+        if (!selector) {
+          selector = 'div.' + (area ? areaClass + area + ':after' : divClass + ' input.' + nodeClass);
+        }
+
+        // replace shorthand rules
+        rules = rules.replace(/!/g, ' !important');
+
+        // append styles
+        if (styleList.addRule) {
+          styleList.addRule(selector, rules, 0);
+        } else {
+          styleList.insertRule(selector + '{' + rules + '}', 0);
+        }
+      };
+
+      // append input's styles
+      style(styleInput);
+
+      // append styler's styles
+      if ((isTouch && isMobile) || operaMini) {
+
+        // force custor:pointer for mobile devices
+        style('cursor:pointer!;', 'label.' + labelClass + ',div.' + divClass);
+      }
+
+      // append iframe's styles
+      style('display:none!', 'iframe.icheck-frame'); // used to handle ajax-loaded inputs
+
+      // class toggler
+      var toggle = function(node, className, status, currentClass, updatedClass, addClass, removeClass) {
+        currentClass = node.className;
+
+        if (!!currentClass) {
+          updatedClass = ' ' + currentClass + ' ';
+
+          // add class
+          if (status === 1) {
+            addClass = className;
+
+          // remove class
+          } else if (status === 0) {
+            removeClass = className;
+
+          // add and remove class
+          } else {
+            addClass = className[0];
+            removeClass = className[1];
+          }
+
+          // add class
+          if (!!addClass && updatedClass.indexOf(' ' + addClass + ' ') < 0) {
+            updatedClass += addClass + ' ';
+          }
+
+          // remove class
+          if (!!removeClass && ~updatedClass.indexOf(' ' + removeClass + ' ')) {
+            updatedClass = updatedClass.replace(' ' + removeClass + ' ', ' ');
+          }
+
+          // trim class
+          updatedClass = updatedClass.replace(/^\s+|\s+$/g, '');
+
+          // update class
+          if (updatedClass !== currentClass) {
+            node.className = updatedClass;
+          }
+
+          // return updated class
+          return updatedClass;
+        }
+      };
+
+      // traces remover
+      var tidy = function(node, key, trigger, settings, className, parent) {
+        if (hashes[key]) {
+          settings = hashes[key];
+          className = settings.className;
+          parent = $(closest(node, 'div', className));
+
+          // prevent overlapping
+          if (parent.length) {
+
+            // input
+            $(node).removeClass(nodeClass + ' ' + className).attr('style', settings.style);
+
+            // label
+            $('label.' + settings.esc).removeClass(labelClass + ' ' + className);
+
+            // parent
+            $(parent).replaceWith($(node));
+
+            // callback
+            if (trigger) {
+              callback(node, key, trigger);
+            }
+          }
+
+          // unset current key
+          hashes[key] = false;
+        }
+      };
+
+      // nodes inspector
+      var inspect = function(object, node, stack, direct, indirect) {
+        stack = [];
+        direct = object.length;
+
+        // inspect object
+        while (direct--) {
+          node = object[direct];
+
+          // direct input
+          if (node.type) {
+
+            // checkbox or radio button
+            if (~filter.indexOf(node.type)) {
+              stack.push(node);
+            }
+
+          // indirect input
+          } else {
+            node = $(node).find(filter);
+            indirect = node.length;
+
+            while (indirect--) {
+              stack.push(node[indirect]);
+            }
+          }
+        }
+
+        return stack;
+      };
+
+      // parent searcher
+      var closest = function(node, tag, className, parent) {
+        while (node && node.nodeType !== 9) {
+          node = node.parentNode;
+
+          if (node && node.tagName == tag.toUpperCase() && ~node.className.indexOf(className)) {
+            parent = node;
+            break;
+          }
+        }
+
+        return parent;
+      };
+
+      // callbacks farm
+      var callback = function(node, key, name) {
+        name = 'if' + name;
+
+        // callbacks are allowed
+        if (!!hashes[key].callbacks) {
+
+          // indirect callback
+          if (hashes[key].callbacks[name] !== false) {
+            $(node).trigger(name);
+
+            // direct callback
+            if (typeof hashes[key].callbacks[name] == 'function') {
+              hashes[key].callbacks[name](node, hashes[key]);
+            }
+          }
+        }
+      };
+
+      // selection processor
+      var process = function(data, options, ajax, silent) {
+
+        // get inputs
+        var elements = inspect(data);
+        var element = elements.length;
+
+        // loop through inputs
+        while (element--) {
+          var node = elements[element];
+          var nodeAttr = node.attributes;
+          var nodeAttrCache = {};
+          var nodeAttrLength = nodeAttr.length;
+          var nodeAttrName;
+          var nodeAttrValue;
+          var nodeData = {};
+          var nodeDataCache = {}; // merged data
+          var nodeDataProperty;
+          var nodeId = node.id;
+          var nodeInherit;
+          var nodeInheritItem;
+          var nodeInheritLength;
+          var nodeString = node.className;
+          var nodeStyle;
+          var nodeType = node.type;
+          var queryData = $.cache ? $.cache[node[$.expando]] : 0; // cached data
+          var settings;
+          var key = extract(nodeString);
+          var keyClass;
+          var handle;
+          var styler;
+          var stylerClass = '';
+          var stylerStyle;
+          var area = false;
+          var label;
+          var labelDirect;
+          var labelIndirect;
+          var labelKey;
+          var labelString;
+          var labels = [];
+          var labelsLength;
+          var fastClass = win.FastClick ? ' needsclick' : '';
+
+          // parse options from HTML attributes
+          while (nodeAttrLength--) {
+            nodeAttrName = nodeAttr[nodeAttrLength].name;
+            nodeAttrValue = nodeAttr[nodeAttrLength].value;
+
+            if (~nodeAttrName.indexOf('data-')) {
+              nodeData[nodeAttrName.substr(5)] = nodeAttrValue;
+            }
+
+            if (nodeAttrName == 'style') {
+              nodeStyle = nodeAttrValue;
+            }
+
+            nodeAttrCache[nodeAttrName] = nodeAttrValue;
+          }
+
+          // parse options from jQuery or Zepto cache
+          if (queryData && queryData.data) {
+            nodeData = $.extend(nodeData, queryData.data);
+          }
+
+          // parse merged options
+          for (nodeDataProperty in nodeData) {
+            nodeAttrValue = nodeData[nodeDataProperty];
+
+            if (nodeAttrValue == 'true' || nodeAttrValue == 'false') {
+              nodeAttrValue = nodeAttrValue == 'true';
+            }
+
+            nodeDataCache[nodeDataProperty.replace(/checkbox|radio|class|id|label/g, function(string, position) {
+              return position === 0 ? string : string.charAt(0).toUpperCase() + string.slice(1);
+            })] = nodeAttrValue;
+          }
+
+          // merge options
+          settings = $.extend({}, defaults, win.icheck, nodeDataCache, options);
+
+          // input type filter
+          handle = settings.handle;
+
+          if (handle !== 'checkbox' && handle !== 'radio') {
+            handle = filter;
+          }
+
+          // prevent unwanted init
+          if (settings.init !== false && ~handle.indexOf(nodeType)) {
+
+            // tidy before processing
+            if (key) {
+              tidy(node, key);
+            }
+
+            // generate random key
+            while(!hashes[key]) {
+              key = Math.random().toString(36).substr(2, 5); // 5 symbols
+
+              if (!hashes[key]) {
+                keyClass = baseClass + '[' + key + ']';
+                break;
+              }
+            }
+
+            // prevent unwanted duplicates
+            delete settings.autoInit;
+            delete settings.autoAjax;
+
+            // save settings
+            settings.style = nodeStyle || '';
+            settings.className = keyClass;
+            settings.esc = keyClass.replace(/(\[|\])/g, '\\$1');
+            hashes[key] = settings;
+
+            // find direct label
+            labelDirect = closest(node, 'label', '');
+
+            if (labelDirect) {
+
+              // normalize "for" attribute
+              if (!!!labelDirect.htmlFor && !!nodeId) {
+                labelDirect.htmlFor = nodeId;
+              }
+
+              labels.push(labelDirect);
+            }
+
+            // find indirect label
+            if (!!nodeId) {
+              labelIndirect = $('label[for="' + nodeId + '"]');
+
+              // merge labels
+              while (labelIndirect.length--) {
+                label = labelIndirect[labelIndirect.length];
+
+                if (label !== labelDirect) {
+                  labels.push(label);
+                }
+              }
+            }
+
+            // loop through labels
+            labelsLength = labels.length;
+
+            while (labelsLength--) {
+              label = labels[labelsLength];
+              labelString = label.className;
+              labelKey = extract(labelString);
+
+              // remove previous key
+              if (labelKey) {
+                labelString = toggle(label, baseClass + '[' + labelKey + ']', 0);
+              } else {
+                labelString = (!!labelString ? labelString + ' ' : '') + labelClass;
+              }
+
+              // update label's class
+              label.className = labelString + ' ' + keyClass + fastClass;
+            }
+
+            // prepare styler
+            styler = doc.createElement('div');
+
+            // parse inherited options
+            if (!!settings.inherit) {
+              nodeInherit = settings.inherit.split(/\s*,\s*/);
+              nodeInheritLength = nodeInherit.length;
+
+              while (nodeInheritLength--) {
+                nodeInheritItem = nodeInherit[nodeInheritLength];
+
+                if (nodeAttrCache[nodeInheritItem] !== undefined) {
+                  if (nodeInheritItem == 'class') {
+                    stylerClass += nodeAttrCache[nodeInheritItem] + ' ';
+                  } else {
+                    styler.setAttribute(nodeInheritItem, nodeInheritItem == 'id' ? baseClass + '-' + nodeAttrCache[nodeInheritItem] : nodeAttrCache[nodeInheritItem]);
+                  }
+                }
+              }
+            }
+
+            // set input's type class
+            stylerClass += settings[nodeType + 'Class'];
+
+            // set styler's key
+            stylerClass += ' ' + divClass + ' ' + keyClass;
+
+            // append area styles
+            if (settings.area && styleArea) {
+              area = ('' + settings.area).replace(/%|px|em|\+|-/g, '') | 0;
+
+              if (area) {
+
+                // append area's styles
+                if (!areas[area]) {
+                  style(styleArea.replace(/#/g, '-' + area + '%'), false, area);
+                  areas[area] = true;
+                }
+
+                stylerClass += ' ' + areaClass + area;
+              }
+            }
+
+            // update styler's class
+            styler.className = stylerClass + fastClass;
+
+            // update node's class
+            node.className = (!!nodeString ? nodeString + ' ' : '') + nodeClass + ' ' + keyClass;
+
+            // replace node
+            node.parentNode.replaceChild(styler, node);
+
+            // append node
+            styler.appendChild(node);
+
+            // append additions
+            if (!!settings.insert) {
+              $(styler).append(settings.insert);
+            }
+
+            // set relative position
+            if (area) {
+
+              // get styler's position
+              if (computed) {
+                stylerStyle = computed(styler, null).getPropertyValue('position');
+              } else {
+                stylerStyle = styler.currentStyle.position;
+              }
+
+              // update styler's position
+              if (stylerStyle == 'static') {
+                styler.style.position = 'relative';
+              }
+            }
+
+            // operate
+            operate(node, styler, key, 'updated', true, false, ajax);
+            hashes[key].done = true;
+
+            // ifCreated callback
+            if (!silent) {
+              callback(node, key, 'Created');
+            }
+          }
+        }
+      };
+
+      // operations center
+      var operate = function(node, parent, key, method, silent, before, ajax) {
+        var settings = hashes[key];
+        var states = {};
+        var changes = {};
+
+        // current states
+        states.checked = [node.checked, 'Checked', 'Unchecked'];
+
+        if ((!before || ajax) && method !== 'click') {
+          states.disabled = [node.disabled, 'Disabled', 'Enabled'];
+          states.indeterminate = [node.getAttribute('indeterminate') == 'true' || !!node.indeterminate, 'Indeterminate', 'Determinate'];
+        }
+
+        // methods
+        if (method == 'updated' || method == 'click') {
+          changes.checked = before ? !states.checked[0] : states.checked[0];
+
+          if ((!before || ajax) && method !== 'click') {
+            changes.disabled = states.disabled[0];
+            changes.indeterminate = states.indeterminate[0];
+          }
+
+        } else if (method == 'checked' || method == 'unchecked') {
+          changes.checked = method == 'checked';
+
+        } else if (method == 'disabled' || method == 'enabled') {
+          changes.disabled = method == 'disabled';
+
+        } else if (method == 'indeterminate' || method == 'determinate') {
+          changes.indeterminate = method !== 'determinate';
+
+        // "toggle" method
+        } else {
+          changes.checked = !states.checked[0];
+        }
+
+        // apply changes
+        change(node, parent, states, changes, key, settings, method, silent, before, ajax);
+      };
+
+      // state changer
+      var change = function(node, parent, states, changes, key, settings, method, silent, before, ajax, loop) {
+        var type = node.type;
+        var typeCapital = type == 'radio' ? 'Radio' : 'Checkbox';
+        var property;
+        var value;
+        var classes;
+        var inputClass;
+        var label;
+        var labelClass = 'LabelClass';
+        var form;
+        var radios;
+        var radiosLength;
+        var radio;
+        var radioKey;
+        var radioStates;
+        var radioChanges;
+        var changed;
+        var toggled;
+
+        // check parent
+        if (!parent) {
+          parent = closest(node, 'div', settings.className);
+        }
+
+        // continue if parent exists
+        if (parent) {
+
+          // detect changes
+          for (property in changes) {
+            value = changes[property];
+
+            // update node's property
+            if (states[property][0] !== value && method !== 'updated' && method !== 'click') {
+              node[property] = value;
+            }
+
+            // update ajax attributes
+            if (ajax) {
+              if (value) {
+                node.setAttribute(property, property);
+              } else {
+                node.removeAttribute(property);
+              }
+            }
+
+            // update key's property
+            if (settings[property] !== value) {
+              settings[property] = value;
+              changed = true;
+
+              if (property == 'checked') {
+                toggled = true;
+
+                // find assigned radios
+                if (!loop && value && (!!hashes[key].done || ajax) && type == 'radio' && !!node.name) {
+                  form = closest(node, 'form', '');
+                  radios = 'input[name="' + node.name + '"]';
+                  radios = form && !ajax ? $(form).find(radios) : $(radios);
+                  radiosLength = radios.length;
+
+                  while (radiosLength--) {
+                    radio = radios[radiosLength];
+                    radioKey = extract(radio.className);
+
+                    // toggle radios
+                    if (node !== radio && hashes[radioKey] && hashes[radioKey].checked) {
+                      radioStates = {checked: [true, 'Checked', 'Unchecked']};
+                      radioChanges = {checked: false};
+
+                      change(radio, false, radioStates, radioChanges, radioKey, hashes[radioKey], 'updated', silent, before, ajax, true);
+                    }
+                  }
+                }
+              }
+
+              // cache classes
+              classes = [
+                settings[property + 'Class'], // 0, example: checkedClass
+                settings[property + typeCapital + 'Class'], // 1, example: checkedCheckboxClass
+                settings[states[property][1] + 'Class'], // 2, example: uncheckedClass
+                settings[states[property][1] + typeCapital + 'Class'], // 3, example: uncheckedCheckboxClass
+                settings[property + labelClass] // 4, example: checkedLabelClass
+              ];
+
+              // value == false
+              inputClass = [classes[3] || classes[2], classes[1] || classes[0]];
+
+              // value == true
+              if (value) {
+                inputClass.reverse();
+              }
+
+              // update parent's class
+              toggle(parent, inputClass);
+
+              // update labels's class
+              if (!!settings.mirror && !!classes[4]) {
+                label = $('label.' + settings.esc);
+
+                while (label.length--) {
+                  toggle(label[label.length], classes[4], value ? 1 : 0);
+                }
+              }
+
+              // callback
+              if (!silent || loop) {
+                callback(node, key, states[property][value ? 1 : 2]); // ifChecked or ifUnchecked
+              }
+            }
+          }
+
+          // additional callbacks
+          if (!silent || loop) {
+            if (changed) {
+              callback(node, key, 'Changed'); // ifChanged
+            }
+
+            if (toggled) {
+              callback(node, key, 'Toggled'); // ifToggled
+            }
+          }
+
+          // cursor addition
+          if (!!settings.cursor && !isMobile) {
+
+            // 'pointer' for enabled
+            if (!settings.disabled && !settings.pointer) {
+              parent.style.cursor = 'pointer';
+              settings.pointer = true;
+
+            // 'default' for disabled
+            } else if (settings.disabled && settings.pointer) {
+              parent.style.cursor = 'default';
+              settings.pointer = false;
+            }
+          }
+
+          // update settings
+          hashes[key] = settings;
+        }
+      };
+
+      // plugin definition
+      $.fn.icheck = function(options, fire) {
+
+        // detect methods
+        if (/^(checked|unchecked|indeterminate|determinate|disabled|enabled|updated|toggle|destroy|data|styler)$/.test(options)) {
+          var items = inspect(this);
+          var itemsLength = items.length;
+
+          // loop through inputs
+          while (itemsLength--) {
+            var item = items[itemsLength];
+            var key = extract(item.className);
+
+            if (key) {
+
+              // 'data' method
+              if (options == 'data') {
+                return hashes[key];
+
+              // 'styler' method
+              } else if (options == 'styler') {
+                return closest(item, 'div', hashes[key].className);
+
+              } else {
+                if (options == 'destroy') {
+                  tidy(item, key, 'Destroyed');
+                } else {
+                  operate(item, false, key, options);
+                }
+
+                // callback
+                if (typeof fire == 'function') {
+                  fire(item);
+                }
+              }
+            }
+          }
+
+        // basic setup
+        } else if (typeof options == 'object' || !options) {
+          process(this, options || {});
+        }
+
+        // chain
+        return this;
+      };
+
+      // cached last key
+      var lastKey;
+
+      // bind label and styler
+      $(doc).on('click.i ' + hover + tap, 'label.' + labelClass + ',div.' + divClass, function(event) {
+        var self = this;
+        var key = extract(self.className);
+
+        if (key) {
+          var emitter = event.type;
+          var settings = hashes[key];
+          var className = settings.esc; // escaped class name
+          var div = self.tagName == 'DIV';
+          var input;
+          var target;
+          var partner;
+          var activate;
+          var states = [
+            ['label', settings.activeLabelClass, settings.hoverLabelClass],
+            ['div', settings.activeClass, settings.hoverClass]
+          ];
+
+          // reverse array
+          if (div) {
+            states.reverse();
+          }
+
+          // active state
+          if (emitter == tapStart || emitter == tapEnd) {
+
+            // toggle self's active class
+            if (!!states[0][1]) {
+              toggle(self, states[0][1], emitter == tapStart ? 1 : 0);
+            }
+
+            // toggle partner's active class
+            if (!!settings.mirror && !!states[1][1]) {
+              partner = $(states[1][0] + '.' + className);
+
+              while (partner.length--) {
+                toggle(partner[partner.length], states[1][1], emitter == tapStart ? 1 : 0);
+              }
+            }
+
+            // fast click
+            if (div && emitter == tapEnd && !!settings.tap && isMobile && isPointer && !operaMini) {
+              activate = true;
+            }
+
+          // hover state
+          } else if (emitter == hoverStart || emitter == hoverEnd) {
+
+            // toggle self's hover class
+            if (!!states[0][2]) {
+              toggle(self, states[0][2], emitter == hoverStart ? 1 : 0);
+            }
+
+            // toggle partner's hover class
+            if (!!settings.mirror && !!states[1][2]) {
+              partner = $(states[1][0] + '.' + className);
+
+              while (partner.length--) {
+                toggle(partner[partner.length], states[1][2], emitter == hoverStart ? 1 : 0);
+              }
+            }
+
+            // fast click
+            if (div && emitter == hoverEnd && !!settings.tap && isMobile && isTouch && !operaMini) {
+              activate = true;
+            }
+
+          // click
+          } else if (div) {
+            if (!(isMobile && (isTouch || isPointer)) || !!!settings.tap || operaMini) {
+              activate = true;
+            }
+          }
+
+          // trigger input's click
+          if (activate) {
+
+            // currentTarget hack
+            setTimeout(function() {
+              target = event.currentTarget || {};
+
+              if (target.tagName !== 'LABEL') {
+                if (!settings.change || (+new Date() - settings.change > 100)) {
+                  input = $(self).find('input.' + className).click();
+
+                  if (ie || operaMini) {
+                    input.change();
+                  }
+                }
+              }
+            }, 2);
+          }
+        }
+
+      // bind input
+      }).on('click.i change.i focusin.i focusout.i keyup.i keydown.i', 'input.' + nodeClass, function(event) {
+        var self = this;
+        var key = extract(self.className);
+
+        if (key) {
+          var emitter = event.type;
+          var settings = hashes[key];
+          var className = settings.esc; // escaped class name
+          var parent = emitter == 'click' ? false : closest(self, 'div', settings.className);
+          var label;
+          var states;
+
+          // click
+          if (emitter == 'click') {
+            hashes[key].change = +new Date();
+
+            // prevent event bubbling to parent
+            event.stopPropagation();
+
+          // change
+          } else if (emitter == 'change') {
+
+            if (parent && !self.disabled) {
+              operate(self, parent, key, 'click'); // 'click' method
+            }
+
+          // focus state
+          } else if (~emitter.indexOf('focus')) {
+            states = [settings.focusClass, settings.focusLabelClass];
+
+            // toggle parent's focus class
+            if (!!states[0] && parent) {
+              toggle(parent, states[0], emitter == 'focusin' ? 1 : 0);
+            }
+
+            // toggle label's focus class
+            if (!!settings.mirror && !!states[1]) {
+              label = $('label.' + className);
+
+              while (label.length--) {
+                toggle(label[label.length], states[1], emitter == 'focusin' ? 1 : 0);
+              }
+            }
+
+          // keyup or keydown (event fired before state is changed, except Opera 9-12)
+          } else if (parent && !self.disabled) {
+
+            // keyup
+            if (emitter == 'keyup') {
+
+              // spacebar or arrow
+              if (self.type == 'checkbox' && event.keyCode == 32 && settings.keydown || self.type == 'radio' && !self.checked) {
+                operate(self, parent, key, 'click', false, true); // 'toggle' method
+              }
+
+              hashes[key].keydown = false;
+              hashes[lastKey] && (hashes[lastKey].keydown = false);
+
+            // keydown
+            } else {
+              lastKey = key;
+              hashes[key].keydown = true;
+            }
+          }
+        }
+
+      // domready
+      }).ready(function() {
+
+        // auto init
+        if (win.icheck.autoInit) {
+          $('.' + baseClass).icheck();
+        }
+
+        // auto ajax
+        if (win.jQuery) {
+
+          // body selector cache
+          var body = doc.body || doc.getElementsByTagName('body')[0];
+
+          // apply converter
+          $.ajaxSetup({
+            converters: {
+              'text html': function(data) {
+                if (win.icheck.autoAjax && body) {
+                  var frame = doc.createElement('iframe'); // create container
+                  var frameData;
+
+                  // set attributes
+                  if (!ie) {
+                    frame.style = 'display:none';
+                  }
+
+                  frame.className = 'iframe.icheck-frame';
+                  frame.src ='about:blank';
+
+                  // append container to document
+                  body.appendChild(frame);
+
+                  // save container's content
+                  frameData = frame.contentDocument ? frame.contentDocument : frame.contentWindow.document;
+
+                  // append data to content
+                  frameData.open();
+                  frameData.write(data);
+                  frameData.close();
+
+                  // remove container from document
+                  body.removeChild(frame);
+
+                  // setup object
+                  frameData = $(frameData);
+
+                  // customize inputs
+                  process(frameData.find('.' + baseClass), {}, true);
+
+                  // extract HTML
+                  frameData = frameData[0];
+                  data = (frameData.body || frameData.getElementsByTagName('body')[0]).innerHTML;
+                  frameData = null; // prevent memory leaks
+                }
+
+                return data;
+              }
+            }
+          });
+        }
+      });
+    };
+
+    // expose iCheck as an AMD module
+    if (typeof define == 'function' && define.amd) {
+      define('icheck', [win.jQuery ? 'jquery' : 'zepto'], win.ichecked);
+    } else {
+      win.ichecked();
+    }
+  }
+}(window, document));
+
+;( function( window ) {
+
+    'use strict';
+
+    var support = { animations : Modernizr.cssanimations },
+        animEndEventNames = { 'WebkitAnimation' : 'webkitAnimationEnd', 'OAnimation' : 'oAnimationEnd', 'msAnimation' : 'MSAnimationEnd', 'animation' : 'animationend' },
+        animEndEventName = animEndEventNames[ Modernizr.prefixed( 'animation' ) ],
+        onEndAnimation = function( el, callback ) {
+            var onEndCallbackFn = function( ev ) {
+                if( support.animations ) {
+                    if( ev.target != this ) return;
+                    this.removeEventListener( animEndEventName, onEndCallbackFn );
+                }
+                if( callback && typeof callback === 'function' ) { callback.call(); }
+            };
+            if( support.animations ) {
+                el.addEventListener( animEndEventName, onEndCallbackFn );
+            }
+            else {
+                onEndCallbackFn();
+            }
+        };
+
+    function extend( a, b ) {
+        for( var key in b ) {
+            if( b.hasOwnProperty( key ) ) {
+                a[key] = b[key];
+            }
+        }
+        return a;
+    }
+
+    function DialogFx( el, options ) {
+        this.el = el;
+        this.options = extend( {}, this.options );
+        extend( this.options, options );
+        this.ctrlClose = this.el.querySelector( '[data-dialog-close]' );
+        this.isOpen = false;
+        this._initEvents();
+    }
+
+    DialogFx.prototype.options = {
+        // callbacks
+        onOpenDialog : function() { return false; },
+        onCloseDialog : function() { return false; }
+    }
+
+    DialogFx.prototype._initEvents = function() {
+        var self = this;
+
+        // close action
+        this.ctrlClose.addEventListener( 'click', this.toggle.bind(this) );
+
+        // esc key closes dialog
+        document.addEventListener( 'keydown', function( ev ) {
+            var keyCode = ev.keyCode || ev.which;
+            if( keyCode === 27 && self.isOpen ) {
+                self.toggle();
+            }
+        } );
+
+        this.el.querySelector( '.dialog__overlay' ).addEventListener( 'click', this.toggle.bind(this) );
+    }
+
+    DialogFx.prototype.toggle = function() {
+        var self = this;
+        if( this.isOpen ) {
+            classie.remove( this.el, 'dialog--open' );
+            classie.add( self.el, 'dialog--close' );
+
+            onEndAnimation( this.el.querySelector( '.dialog__content' ), function() {
+                classie.remove( self.el, 'dialog--close' );
+            } );
+
+            // callback on close
+            this.options.onCloseDialog( this );
+        }
+        else {
+            classie.add( this.el, 'dialog--open' );
+
+            // callback on open
+            this.options.onOpenDialog( this );
+        }
+        this.isOpen = !this.isOpen;
+    };
+
+    // add to global namespace
+    window.DialogFx = DialogFx;
+
+})( window );
+
+;(function ($, window, document, undefined) {
+  'use strict';
+
+  window.icheck = {
+    autoInit: false
+  , autoAjax: false
+  };
+
+  $(document).on('ready', function () {
+      var dlgtrigger = document.querySelector('[data-dialog]');
+      var codex = document.getElementById( dlgtrigger.getAttribute('data-dialog'));
+      var dlg = new DialogFx(codex);
+
+      dlgtrigger.addEventListener('click', dlg.toggle.bind(dlg));
+  })
+
+  $(document).on('ready ajaxSuccess', function () {
+
+    // Initialize or re-initialize iCheck
+    $('input:not(.icheck-input)').icheck();
+
+  });
+
+  $(function () {
+
+    // Attach spinner to the .InProgress element in flyouts
+    $(document).on('click', '.ToggleFlyout', function (e) {
+      $('.InProgress', e.currentTarget).spin({
+          lines  : 11
+        , radius : 5
+        , length : 5
+        , width  : 2
+        });
+    });
+
+    // Attach spinner to the .TinyProgress element when editing comment
+    $(document).on('click', '.EditComment', function (e) {
+      $('.TinyProgress', $(e.currentTarget).closest('.Item'))
+        .empty()
+        .spin({
+          lines  : 9
+        , radius : 3
+        , length : 3
+        , width  : 2
+        });
+    });
+
+    // Attach spinner to the .MorePager when loading more content
+    $(document).on('click', '.MorePager a', function (e) {
+      $(e.currentTarget).parent()
+        .spin({
+          lines  : 9
+        , radius : 3
+        , length : 3
+        , width  : 2
+        });
+    });
+
+    var overlay = '.Overlay'
+      , dialog  = '> .Popup';
+
+    /**
+     * Show the modal backdrop, but hide the actual modal dialog while it's
+     * loading.
+     *
+     * @this {overlay}
+     */
+    var preparePopup = function () {
+      var $overlay  = $(this)
+        , $backdrop = $('<div class="backdrop fade">');
+
+      // Lock body scrolling
+      $('body').addClass('modal-open');
+
+      // Prepare dialog animation
+      $(dialog, $overlay).addClass('fade');
+
+      // Attach a backdrop to the overlay if one doesn't already exist
+      if (!$overlay.data('backdrop')) {
+        $overlay.data('backdrop', $backdrop);
+
+        // Append the modal backdrop to overlay
+        $overlay.append($backdrop);
+      }
+
+      // Fake async addition of class
+      setTimeout(function () {
+        // Fade in backdrop and add spinner
+        $backdrop.addClass('in').spin({
+          lines  : 11
+        , radius : 10
+        , length : 10
+        , width  : 4
+        });
+      }, 0);
+    };
+
+    /**
+     * Fade in the modal dialog when it's time to reveal it.
+     *
+     * @this {overlay}
+     */
+    var revealPopup = function () {
+      var $overlay  = $(this)
+        , $backdrop = $overlay.data('backdrop');
+
+      // Fade in modal dialog
+      $(dialog, $overlay).addClass('in');
+
+      if ($backdrop.length) {
+        // Remove spinner from modal backdrop
+        $backdrop.spin(false);
+      }
+    };
+
+    /**
+     * When it's time to close the modal, first fade out the modal dialog,
+     * then fade out the modal backdrop, and lastly remove the entire modal
+     * from the DOM.
+     *
+     * @this {overlay}
+     */
+    var closePopup = function () {
+      var $overlay  = $(this)
+        , $backdrop = $overlay.data('backdrop');
+
+      // Fade out the modal dialog
+      $(dialog, $overlay).removeClass('in');
+
+      setTimeout(function () {
+        if ($backdrop.length) {
+          // Fade out the backdrop
+          $backdrop.removeClass('in');
+        }
+
+        // Re-enable body scrolling
+        $('body').removeClass('modal-open');
+      }, 150);
+
+      setTimeout(function () {
+        // Remove overlay from the DOM
+        $(overlay).remove();
+      }, 300);
+    };
+
+    $(document)
+      .on('popupLoading', function () {
+        $(overlay).each(preparePopup);
+      })
+      .on('popupReveal', function () {
+        $(overlay).each(revealPopup);
+      })
+      .on('popupClose', function (e) {
+        $(overlay).each(closePopup);
+      });
+
+    var confirmPopupEls = [
+      'a.Delete'
+    , 'a.DeleteComment'
+    , 'a.DeleteFile'
+    , 'a.PopConfirm'
+    , 'a.ClearConversation'
+    , 'ul#DP_Remove a'
+    ];
+
+    // When only a confirmation modal is shown, the "popupLoading" and
+    // "popupReveal" events are never triggered. Manually trigger them to make
+    // sure that the modal is actually shown.
+    $(document).on('click', confirmPopupEls.join(), function (e) {
+      $(document).trigger('popupLoading');
+
+      setTimeout(function () {
+        $(document).trigger('popupReveal');
+      }, 150);
+    });
+
+  });
+
+  /**
+   * Override the popup.close method to ensure that the modal isn't immdiately
+   * removed from the DOM upon closing the dialog. This version of the method
+   * instead lets it be up to listeners to actually close the modal, just like
+   * it's the reponsibility of listeners to show the modal.
+   *
+   * @param  {Object} settings
+   * @param  {Object} response
+   * @return {bool}
+   */
+  $.popup.close = function (settings, response) {
+    $(document).unbind('keydown.popup');
+    $('#' + settings.popupId).trigger('popupClose');
+
+    return false;
+  };
+
+})(jQuery, window, document);

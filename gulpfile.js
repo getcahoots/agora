@@ -36,11 +36,11 @@ gulp.task('scripts', function () {
     , source = $.filter('js/src/**/*.js');
 
   return gulp.src((dependencies.js || []).concat([
-    'js/src/main.js'
+    'js/src/*.js'
   ]))
     .pipe($.plumber())
     .pipe($.concat('custom.js'))
-    .pipe($.uglify())
+    //.pipe($.uglify())
     .pipe(gulp.dest('js'))
     .pipe($.size({showFiles: true}));
 });
@@ -75,13 +75,17 @@ gulp.task('transfer-styles', function () {
     return gulp.src(['./design/*.css']).pipe(trans('/design/'));
 });
 
+gulp.task('transfer-scripts', function () {
+    return gulp.src(['./js/*.js']).pipe(trans('/js/'));
+});
+
 gulp.task('transfer-assets', function () {
     return gulp.src(['./about.php']).pipe(trans('/'));
 });
 
 
 gulp.task('transfer', function transfer (callback) {
-    return sequence('transfer-styles', 'transfer-assets', 'transfer-views', callback);
+    return sequence('transfer-styles', 'transfer-assets', 'transfer-scripts', 'transfer-views', callback);
 });
 
 gulp.task('deploy', function deploy (callback) {

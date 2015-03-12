@@ -6,6 +6,14 @@
   , autoAjax: false
   };
 
+  $(document).on('ready', function () {
+      var dlgtrigger = document.querySelector('[data-dialog]');
+      var codex = document.getElementById( dlgtrigger.getAttribute('data-dialog'));
+      var dlg = new DialogFx(codex);
+
+      dlgtrigger.addEventListener('click', dlg.toggle.bind(dlg));
+  })
+
   $(document).on('ready ajaxSuccess', function () {
 
     // Initialize or re-initialize iCheck
