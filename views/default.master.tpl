@@ -41,12 +41,12 @@
           {$Assets.Panel.GuestModule}
       {else}
           {if $smarty.server.REQUEST_URI == '/'}
-          <div class="greeting">
+          <div class="greeting greeting-streamline">
               <section class="container">
                       <div class="greeting--header">
                           <h1 class="greeting--header-title">Hallo {$User.Name}!</h1>
 
-                          <p class="greeting--header-description">Schön, dass Du den Weg hierher gefunden hast. Ich merke gerade, dass wir da in jedem Fall noch einen Text brauchen. Hat jemand Ideen?</p>
+                          <p class="greeting--header-description">Als Mitglied der Cahoots-Community kannst Du mit­ent­schei­den, welche Verbindungen in der Extension verfügbar sein sollen.</p>
                       </div>
               </section>
           </div>
