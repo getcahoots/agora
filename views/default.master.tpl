@@ -16,6 +16,7 @@
                   </div>
 
                   <div class="navbar-collapse collapse">
+
                       {if $User.SignedIn}
                       <ul class="nav navbar-nav navbar-right hidden-xs">
                           {module name="MeModule"}
@@ -43,11 +44,11 @@
           {if $smarty.server.REQUEST_URI == '/'}
           <div class="greeting greeting-streamline">
               <section class="container">
-                      <div class="greeting--header">
-                          <h1 class="greeting--header-title">Hallo {$User.Name}!</h1>
+                  <div class="greeting--header">
+                      <h1 class="greeting--header-title">Hallo {$User.Name}!</h1>
 
-                          <p class="greeting--header-description">Als Mitglied der Cahoots-Community kannst Du mit­ent­schei­den, welche Verbindungen in der Extension verfügbar sein sollen.</p>
-                      </div>
+                      <p class="greeting--header-description">Als Mitglied der Cahoots-Community kannst Du mit­ent­schei­den, welche Verbindungen in der Extension verfügbar sein sollen.</p>
+                  </div>
               </section>
           </div>
           {/if}
@@ -57,6 +58,10 @@
 
       <section class="container">
           <div class="row">
+              <div class="suggestor">
+                  <a href="http://cahoots.pw" class="Button Primary Action NewDiscussion">+ Verbindung vorschlagen</a>
+              </div>
+
               <main class="page-content" role="main">
                   {asset name="Content"}
               </main>
