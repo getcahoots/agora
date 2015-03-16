@@ -71,7 +71,7 @@
               <p>Bitte respektiert die Privatssphäre der Journalisten. Verbindungen müssen relevant für die journalistische Tätigkeit sein und durch öffentliche Quellen eindeutig nachvollziehbar.</p>
 
               <div class="dialog-buttons">
-                  <button class="Button Primary Action" data-dialog-close>okidoki</button>
+                  <button class="Button Primary Action" data-dialog-close>OK</button>
               </div>
           </div>
       </div>
