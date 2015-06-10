@@ -19,7 +19,9 @@
                   </div>
 
                   <div class="navbar-collapse collapse">
-
+                      <ul class="nav navbar-nav">
+                        {categories_link}
+                      </ul>
                       {if $User.SignedIn}
                       <ul class="nav navbar-nav navbar-right hidden-xs">
                           {module name="MeModule"}
