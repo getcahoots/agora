@@ -1,39 +1,15 @@
-# cahoots - forumize
+# agora
 
-This repository contains our UI theme of the [Cahoots forum](https://forum.cahoots.pw).
+The frontend of the [cahoots forum](https://forum.cahoots.pw).
 
-It originated as a fork of the Bootstrap-based theme from [Kasper Isager](https://github.com/kasperisager/vanilla-bootstrap).
+## License
 
-## Development
+The MIT License (MIT)
 
-You need Node.js / io.js in order to build the theme.
+Copyright (c) 2014-2015 Cahoots, Germany info@cahoots.pw
 
-Install all dependencies via npm:
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-```sh
-$ npm install && npm run bower
-```
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-The last script call will install all bower dependencies.
-
-### Tasks
-
-#### Wire mode (a.k.a. development mode)
-
-```sh
-$ SFTP_HOST=<sftp-host> SFTP_PORT=<sftp-port> SFTP_USER=<sftp-user> SFTP_PASSWORD=<sftp-password> SFTP_PATH=<sftp-path> npm run wire
-```
-
-Will switch into development mode and listens for changes, compiles them and deploys this new version to the defined server.
-
-#### Build
-
-```sh
-$ npm run build
-```
-
-Will compile all sources (you have to deploy this build manually).
-
----
-
-Copyright &copy; 2014-2015 [Cahoots](https://github.com/getcahoots). Licensed under the terms of the [MIT License](LICENSE.md)
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

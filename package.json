@@ -1,60 +1,6 @@
 {
-  "name": "cahoots-forumize",
-  "version": "1.0.0",
-  "description": "The UI theme of the cahoots forum.",
-  "private": true,
-  "scripts": {
-    "bower": "bower install",
-    "build": "gulp",
-    "wire": "gulp wire"
-  },
-  "author": "cahoots.pw",
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:getcahoots/forumize.git"
-  },
-  "contributors": [
-    {
-      "name": "Alexander Barnickel",
-      "email": "alex@cahoots.ninja"
-    },
-    {
-      "name": "Jonas Bergmeier",
-      "email": "jonas@cahoots.ninja",
-      "url": "http://jonasbergmeier.net"
-    },
-    {
-      "name": "Oliver Sommer",
-      "email": "oliver@cahoots.ninja"
-    },
-    {
-      "name": "Julian Fath",
-      "email": "julian@cahoots.ninja"
-    },
-    {
-      "name": "André König",
-      "email": "andre@cahoots.ninja",
-      "url": "http://andrekoenig.info"
-    }
-  ],
-  "devDependencies": {
-    "bower": "^1.3.12",
-    "gulp": "^3.8.11",
-    "gulp-autoprefixer": "^2.1.0",
-    "gulp-concat": "^2.5.2",
-    "gulp-csso": "^1.0.0",
-    "gulp-filter": "^2.0.2",
-    "gulp-less": "^3.0.1",
-    "gulp-load-plugins": "^0.8.1",
-    "gulp-plumber": "^1.0.0",
-    "gulp-rename": "^1.2.0",
-    "gulp-scp2": "^0.1.3",
-    "gulp-size": "^1.2.1",
-    "gulp-uglify": "^1.1.0",
-    "run-sequence": "^1.0.2",
-    "wiredep": "^2.2.2"
-  },
-  "engines": {
-    "node": ">=0.10.0"
-  }
+    "name": "@getcahoots/agora",
+    "version": "1.0.0",
+    "description": "The frontend of the cahoots forum (forum.cahoots.pw)",
+    "author": "André König <andre@cahoots.ninja>"
 }
