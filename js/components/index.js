@@ -14,4 +14,5 @@
 'use strict';
 
 module.exports = {
+    BucketsComponent: require('./Buckets.react.js')
 };
