@@ -1,6 +1,23 @@
 {
-    "name": "@getcahoots/agora",
-    "version": "1.0.0",
-    "description": "The frontend of the cahoots forum (forum.cahoots.pw)",
-    "author": "André König <andre@cahoots.ninja>"
+  "name": "@getcahoots/agora",
+  "version": "1.0.0",
+  "description": "The frontend of the cahoots forum (forum.cahoots.pw)",
+  "author": "André König <andre@cahoots.ninja>",
+  "scripts": {
+      "start": "watchify -o js/bundle.js -v -d js/app.js"
+  },
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
+  },
+  "devDependencies": {
+    "babelify": "^6.1.2",
+    "browserify": "^10.2.4",
+    "watchify": "^3.2.3"
+  },
+  "dependencies": {
+    "flux": "^2.0.3",
+    "react": "^0.13.3"
+  }
 }
