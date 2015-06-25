@@ -14,6 +14,8 @@
 'use strict';
 
 let React = require('react');
+let Store = require('../stores/').DiscussionsStore;
+let Actions = require('../actions/').DiscussionsActions;
 
 class DiscussionsComponent extends React.Component {
 
@@ -24,7 +26,7 @@ class DiscussionsComponent extends React.Component {
     render() {
         return (
             <div className="discussions">
-                The discussions
+                The discussionsasdas
             </div>
         );
     }

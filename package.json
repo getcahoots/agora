@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "description": "The frontend of the cahoots forum (forum.cahoots.pw)",
   "author": "André König <andre@cahoots.ninja>",
+  "main": "js/app",
   "scripts": {
-      "start": "watchify -o js/bundle.js -v -d js/app.js"
+    "start": "watchify -o js/bundle.js -v -d js/app.js",
+    "build": "browserify . -t [envify --NODE_ENV production] | uglifyjs -cm > js/bundle.min.js"
   },
   "browserify": {
     "transform": [
@@ -14,6 +16,8 @@
   "devDependencies": {
     "babelify": "^6.1.2",
     "browserify": "^10.2.4",
+    "envify": "^3.4.0",
+    "uglifyjs": "^2.4.10",
     "watchify": "^3.2.3"
   },
   "dependencies": {
