@@ -14,10 +14,3 @@
 'use strict';
 
 let React = require('react');
-
-let Discussions = require('./components/').Discussions;
-
-React.render(
-  <Discussions />,
-  document.getElementById('discussions')
-);

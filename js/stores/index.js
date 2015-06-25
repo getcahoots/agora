@@ -14,5 +14,5 @@
 'use strict';
 
 module.exports = {
-    DiscussionsStore: require('./DiscussionsStore')
+
 };
