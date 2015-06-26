@@ -11,16 +11,14 @@
  *
  */
 
+'use strict';
+
 import AbstractService from './AbstractService';
 
 export default class ProposalService extends AbstractService {
 
     constructor() {
         super();
-    }
-
-    findAllByStatus(status, callback) {
-
     }
 
 }

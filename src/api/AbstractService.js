@@ -11,8 +11,16 @@
  *
  */
 
-'use strict';
+import * as fetch from 'whatwg-fetch';
 
 export default class AbstractService {
+
+    constructor() {
+        this.baseURL = `https://cahoots-agora-test.firebaseio.com`;
+    }
+
+    endpoint(resource) {
+        return `${this.baseURL}${resource}.json`
+    }
 
 }

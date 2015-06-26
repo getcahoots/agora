@@ -11,8 +11,6 @@
  *
  */
 
-'use strict';
-
 import ProposalService from '../ProposalService';
 
 jest.dontMock('../ProposalService');
@@ -26,7 +24,13 @@ describe('The "ProposalService" should be', () => {
     });
 
     it('able to fetch all proposals by a given status', () => {
+        let service = new ProposalService();
 
+        let status = 'OPEN';
+
+        service.findAllByStatus('open', (result) => {
+            expect(result).toBeDefined();
+        });
     });
 
 });
