@@ -13,17 +13,12 @@
 
 'use strict';
 
-let Dispatcher = require('../dispatcher');
-let EventEmitter = require('events').EventEmitter;
+import AbstractService from './AbstractService';
 
-class BucketsStore extends EventEmitter {
+export default class ProposalService extends AbstractService {
 
     constructor() {
         super();
     }
 
 }
-
-module.exports = (() => {
-    return new BucketsStore();
-})();

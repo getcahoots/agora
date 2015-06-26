@@ -1,22 +1,30 @@
 {
-  "name": "@getcahoots/agora",
+  "name": "agora",
   "version": "1.0.0",
-  "description": "The frontend of the cahoots forum (forum.cahoots.pw)",
-  "author": "André König <andre@cahoots.ninja>",
-  "main": "js/app",
+  "description": "A consensus-seeking platform.",
+  "author": "André König <andre.koenig@posteo.de>",
+  "main": "src/app",
   "scripts": {
-    "start": "watchify -o js/bundle.js -v -d js/app.js",
-    "build": "browserify . -t [envify --NODE_ENV production] | uglifyjs -cm > js/bundle.min.js"
+    "start": "watchify -o src/bundle.js -v -d src/app.js",
+    "build": "browserify . -t [envify --NODE_ENV production] | uglifyjs -cm > src/bundle.min.js",
+    "test": "jest"
   },
   "browserify": {
     "transform": [
       "babelify"
     ]
   },
+  "jest": {
+    "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
+    "testFileExtensions": ["js"],
+    "moduleFileExtensions": ["js"]
+  },
   "devDependencies": {
+    "babel-jest": "^5.3.0",
     "babelify": "^6.1.2",
     "browserify": "^10.2.4",
     "envify": "^3.4.0",
+    "jest-cli": "^0.4.13",
     "uglifyjs": "^2.4.10",
     "watchify": "^3.2.3"
   },
