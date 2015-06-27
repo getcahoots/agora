@@ -25,7 +25,7 @@ describe('The "ProposalService" should be', () => {
         done();
     });
 
-    it('to fetch all proposals with a given state', (done) => {
+    it('able to fetch all proposals with a given state', (done) => {
         let status = 'OPEN';
         let service = new ProposalService();
 
