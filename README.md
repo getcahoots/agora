@@ -1,6 +1,6 @@
-# agora
+# agora 
 
-The frontend of the [cahoots forum](https://forum.cahoots.pw).
+A platform for consensus-seeking. 
 
 ## License
 
