@@ -17,11 +17,11 @@ const TYPES = {
     'PROPOSAL': true
 }
 
-export default create(type) {
-    switch (type.toUpperCase()) {
-        let service = null;
+export default (type) => {
+    let service = null;
 
-        case: 'PROPOSAL':
+    switch (type.toUpperCase()) {
+        case 'PROPOSAL':
             service = new ProposalService();
         break;
 

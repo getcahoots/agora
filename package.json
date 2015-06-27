@@ -4,33 +4,23 @@
   "description": "A consensus-seeking platform.",
   "author": "André König <andre.koenig@posteo.de>",
   "main": "src/app",
+  "config": {
+    "sources": "src",
+    "build": "build",
+    "dist": "dist",
+    "main": "app.js",
+    "bundle": "bundle.js"
+  },
   "scripts": {
-    "start": "watchify -o src/bundle.js -v -d src/app.js",
-    "build": "browserify . -t [envify --NODE_ENV production] | uglifyjs -cm > src/bundle.min.js",
-    "test": "jest"
-  },
-  "browserify": {
-    "transform": [
-      "babelify"
-    ]
-  },
-  "jest": {
-    "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
-    "testFileExtensions": [
-      "js"
-    ],
-    "moduleFileExtensions": [
-      "js"
-    ]
+    "clean": "rm -rf $npm_package_config_build $npm_package_config_dist",
+    "build": "npm run clean && babel --out-dir $npm_package_config_build/ $npm_package_config_sources",
+    "bundle": "npm run build && mkdir $npm_package_config_dist && browserify $npm_package_config_build/$npm_package_config_main -o $npm_package_config_dist/$npm_package_config_bundle",
+    "test": "mocha --compilers js:babel/register"
   },
   "devDependencies": {
-    "babel-jest": "^5.3.0",
-    "babelify": "^6.1.2",
     "browserify": "^10.2.4",
-    "envify": "^3.4.0",
-    "jest-cli": "^0.4.13",
-    "uglifyjs": "^2.4.10",
-    "watchify": "^3.2.3"
+    "expect.js": "^0.3.1",
+    "mocha": "^2.2.5"
   },
   "dependencies": {
     "flux": "^2.0.3",
