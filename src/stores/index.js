@@ -14,5 +14,4 @@
 'use strict';
 
 module.exports = {
-    BucketsStore: require('./BucketsStore')
 };

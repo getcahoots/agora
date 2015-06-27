@@ -9,17 +9,20 @@
     "build": "build",
     "dist": "dist",
     "main": "app.js",
-    "bundle": "bundle.js"
+    "bundle": "bundle.js",
+    "specs": "./src/{**,*.js}/*.js"
   },
   "scripts": {
     "clean": "rm -rf $npm_package_config_build $npm_package_config_dist",
     "build": "npm run clean && babel --out-dir $npm_package_config_build/ $npm_package_config_sources",
     "bundle": "npm run build && mkdir $npm_package_config_dist && browserify $npm_package_config_build/$npm_package_config_main -o $npm_package_config_dist/$npm_package_config_bundle",
-    "test": "mocha --compilers js:babel/register"
+    "test": "mocha -r ./jsdom.env --compilers js:babel/register $npm_package_config_specs"
   },
   "devDependencies": {
     "browserify": "^10.2.4",
+    "chai": "^3.0.0",
     "expect.js": "^0.3.1",
+    "jsdom": "^5.4.3",
     "mocha": "^2.2.5"
   },
   "dependencies": {

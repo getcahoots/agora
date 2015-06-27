@@ -14,9 +14,3 @@
 'use strict';
 
 let React = require('react');
-let Buckets = require('./components/').BucketsComponent;
-
-React.render(
-    <Buckets />,
-    document.getElementById('buckets')
-);
