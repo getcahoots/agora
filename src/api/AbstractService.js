@@ -11,14 +11,15 @@
  *
  */
 
+import fetch from 'isomorphic-fetch';
+
 export default class AbstractService {
 
     constructor() {
-        this.baseURL = `https://cahoots-agora-test.firebaseio.com`;
+        this.baseURL = `https://flickering-heat-5385.firebaseio.com`;
     }
 
     endpoint(resource) {
         return `${this.baseURL}${resource}.json`
     }
-
 }
