@@ -1,0 +1,17 @@
+/*
+ * @getcahoots/agora
+ *
+ * Copyright Cahoots.pw
+ * MIT Licensed
+ *
+ */
+
+/**
+ * @author André König <andre.koenig@posteo.de>
+ *
+ */
+
+var jsdom = require('jsdom');
+
+global.document = jsdom.jsdom('<!doctype html><html><body></body></html>');
+global.window = document.parentWindow;
