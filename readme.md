@@ -1,6 +1,6 @@
 # agora [![Build Status](https://travis-ci.org/getcahoots/agora.svg?branch=master)](https://travis-ci.org/getcahoots/agora)
 
-A platform for seekung consensus. 
+A platform for seeking consensus.
 
 ## License
 

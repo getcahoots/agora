@@ -1,7 +1,7 @@
 {
   "name": "agora",
   "version": "1.0.0",
-  "description": "A platform for seekung consensus.",
+  "description": "A platform for seeking consensus.",
   "author": "André König <andre.koenig@posteo.de>",
   "main": "src/app",
   "config": {
